@@ -39,4 +39,12 @@
             android:layout_alignParentRight="true"
             android:background="@color/white"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/displayView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="#000"
+        android:textSize="13sp"/>
 </RelativeLayout>
