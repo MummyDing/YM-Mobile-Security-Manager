@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
             @Override
             public void onClick(View v) {
                 MemoryCleaner.getInstance().clearMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
+                MemoryCleaner.getInstance().cancel();
             }
         });
     }
@@ -45,8 +46,12 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
 
     @Override
     public void onFinish(boolean success, ActivityManager.MemoryInfo memoryInfo) {
-        mDisplayText += "processCount: " + success + " availMemory: " + memoryInfo.availMem / MemoryCleaner.MB
-                + "totalMemory: " + memoryInfo.totalMem / MemoryCleaner.MB +"\n";
+        if (success) {
+            mDisplayText += "processCount: " + success + " availMemory: " + memoryInfo.availMem / MemoryCleaner.MB
+                    + "totalMemory: " + memoryInfo.totalMem / MemoryCleaner.MB + "\n";
+        } else {
+            mDisplayText += "fail \n";
+        }
         mDisplayView.setText(mDisplayText);
     }
 

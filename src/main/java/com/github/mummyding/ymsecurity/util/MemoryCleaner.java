@@ -3,6 +3,7 @@ package com.github.mummyding.ymsecurity.util;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
 
@@ -23,6 +24,7 @@ public class MemoryCleaner {
 
     private Set<MemoryCleanerStateChangedListener> mListeners = new HashSet<>();
     private static MemoryCleaner sMemoryCleaner;
+    private MemoryCleanerTask mMemoryCleanTask;
     private int mCleanLevel = CLEAN_LEVEL_NORMAL;
 
     private MemoryCleaner() {
@@ -118,6 +120,16 @@ public class MemoryCleaner {
             }
             notifyMemoryCleanerStateChanged(mCurrentProcessIndex, values[0]);
         }
+
+        @Override
+        protected void onCancelled(ActivityManager.MemoryInfo memoryInfo) {
+            if (memoryInfo != null) {
+                notifyMemoryCleanerFinish(true, memoryInfo);
+                Log.d(TAG, "onCancelled");
+                return;
+            }
+            notifyMemoryCleanerFinish(false, null);
+        }
     }
 
     public static MemoryCleaner getInstance() {
@@ -135,8 +147,15 @@ public class MemoryCleaner {
         if (cleanLevel == CLEAN_LEVEL_DEEP || cleanLevel == CLEAN_LEVEL_NORMAL) {
             mCleanLevel = cleanLevel;
         }
-        MemoryCleanerTask task = new MemoryCleanerTask(context);
-        task.execute();
+        mMemoryCleanTask = new MemoryCleanerTask(context);
+        mMemoryCleanTask.execute();
+    }
+
+    public boolean cancel() {
+        if (mMemoryCleanTask != null && mMemoryCleanTask.getStatus() == AsyncTask.Status.RUNNING) {
+            return mMemoryCleanTask.cancel(true);
+        }
+        return false;
     }
 
     public ActivityManager.MemoryInfo getMemoryInfo(ActivityManager am) {
