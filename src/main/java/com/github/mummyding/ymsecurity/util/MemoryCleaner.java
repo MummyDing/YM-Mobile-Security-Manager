@@ -18,9 +18,12 @@ public class MemoryCleaner {
 
     private static final String TAG = "MemoryCleaner";
     public final static long MB = 1024 * 1024;
+    public final static int CLEAN_LEVEL_NORMAL = ActivityManager.RunningAppProcessInfo.IMPORTANCE_SERVICE;
+    public final static int CLEAN_LEVEL_DEEP = ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
 
     private Set<MemoryCleanerStateChangedListener> mListeners = new HashSet<>();
     private static MemoryCleaner sMemoryCleaner;
+    private int mCleanLevel = CLEAN_LEVEL_NORMAL;
 
     private MemoryCleaner() {
     }
@@ -79,13 +82,13 @@ public class MemoryCleaner {
             ActivityManager.MemoryInfo currentMemoryInfo = lastMemoryInfo;
             for (int i = 0; i < mProcessInfoList.size(); i++) {
                 ActivityManager.RunningAppProcessInfo appProcessInfo = mProcessInfoList.get(i);
-                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
+                if (appProcessInfo.importance > mCleanLevel) {
                     String[] pkgList = appProcessInfo.pkgList;
                     for (int j = 0; j < pkgList.length; j++) {
                         mActivityManager.killBackgroundProcesses(pkgList[j]);
                         currentMemoryInfo = getMemoryInfo(mActivityManager);
                         mCurrentProcessIndex++;
-                        publishProgress(new MemoryCleanerModel(pkgList[j], lastMemoryInfo, currentMemoryInfo));
+                        publishProgress(new MemoryCleanerModel(appProcessInfo.processName + ":" + pkgList[j], lastMemoryInfo, currentMemoryInfo));
                         lastMemoryInfo = currentMemoryInfo;
                     }
                 }
@@ -125,6 +128,13 @@ public class MemoryCleaner {
     }
 
     public void clearMemory(Context context) {
+        clearMemory(context, CLEAN_LEVEL_NORMAL);
+    }
+
+    public void clearMemory(Context context, int cleanLevel) {
+        if (cleanLevel == CLEAN_LEVEL_DEEP || cleanLevel == CLEAN_LEVEL_NORMAL) {
+            mCleanLevel = cleanLevel;
+        }
         MemoryCleanerTask task = new MemoryCleanerTask(context);
         task.execute();
     }

@@ -26,26 +26,26 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
         mProgressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MemoryCleaner.getInstance().clearMemory(MainActivity.this);
+                MemoryCleaner.getInstance().clearMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
             }
         });
     }
 
     @Override
     public void onStart(int processCount, ActivityManager.MemoryInfo memoryInfo) {
-        mDisplayText += "processCount: " + processCount + " avaiMemory: " + memoryInfo.availMem / MemoryCleaner.MB
+        mDisplayText += "processCount: " + processCount + " availMemory: " + memoryInfo.availMem / MemoryCleaner.MB
                 + "totalMemory: " + memoryInfo.totalMem / MemoryCleaner.MB +"\n";
     }
 
     @Override
     public void onMemoryStateChanged(int processIndex, MemoryCleanerModel memoryCleanerModel) {
-        mDisplayText += "processIndex: " + processIndex +"\n";
+        mDisplayText += "processIndex: " + processIndex + memoryCleanerModel.getPkgName() + ": " + memoryCleanerModel.getMemoryCleaned() + "MB \n";
 
     }
 
     @Override
     public void onFinish(boolean success, ActivityManager.MemoryInfo memoryInfo) {
-        mDisplayText += "processCount: " + success + " avaiMemory: " + memoryInfo.availMem / MemoryCleaner.MB
+        mDisplayText += "processCount: " + success + " availMemory: " + memoryInfo.availMem / MemoryCleaner.MB
                 + "totalMemory: " + memoryInfo.totalMem / MemoryCleaner.MB +"\n";
         mDisplayView.setText(mDisplayText);
     }
