@@ -7,12 +7,11 @@ import android.util.Log;
 import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by MummyDing on 2017/1/30.
@@ -23,6 +22,7 @@ import static android.content.ContentValues.TAG;
 
 public class CacheCleaner {
 
+    private static final String TAG = "CacheCleaner";
     private static CacheCleaner sCacheCleaner;
     private ScanCacheAsyncTask mScanCacheAsyncTask;
     private DeleteCacheAsyncTask mDeleteCacheAsyncTask;
@@ -38,13 +38,17 @@ public class CacheCleaner {
     }
 
     public interface ScanCacheListener {
+
         void onStateChanged(CacheCleanerModel cacheCleanerModel);
-        void onFinish(boolean success);
+
+        void onFinish(boolean success, String rootPath, List<CacheCleanerModel> cacheCleanerModelList);
     }
 
     public interface DeleteCacheListener {
-        void onStateChanged(boolean success, File file);
-        void onFinish(boolean success);
+
+        void onStateChanged(File file);
+
+        void onFinish(boolean success, String rootPath);
     }
 
     private Set<ScanCacheListener> mScanCacheListeners = new HashSet<>();
@@ -102,6 +106,22 @@ public class CacheCleaner {
         return true;
     }
 
+    public boolean cancelScanCache() {
+        if (mScanCacheAsyncTask == null || mScanCacheAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            return false;
+        }
+        mScanCacheAsyncTask.cancel(true);
+        return true;
+    }
+
+    public boolean cancelDeleteCache() {
+        if (mDeleteCacheAsyncTask == null || mDeleteCacheAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            return false;
+        }
+        mDeleteCacheAsyncTask.cancel(true);
+        return true;
+    }
+
     private class ScanCacheAsyncTask extends AsyncTask<Void, CacheCleanerModel , List<CacheCleanerModel>> {
 
         private String mRootPath;
@@ -118,14 +138,14 @@ public class CacheCleaner {
             super.onPreExecute();
             if (!isValidPath(mRootPath)) {
                 mIsScanStop = true;
-                // TODO: 2017/1/31 onFinish False
+                notifyScanCacheFinish(false, mRootPath, new ArrayList<CacheCleanerModel>());
             }
         }
 
         @Override
         protected List<CacheCleanerModel> doInBackground(Void ... params) {
             if (mIsScanStop) {
-                return null;
+                return new ArrayList<>();
             }
             return scanCache(mRootPath, mOnlyCurrentDirectory);
         }
@@ -133,11 +153,15 @@ public class CacheCleaner {
         @Override
         protected void onProgressUpdate(CacheCleanerModel ... values) {
             super.onProgressUpdate(values);
+            if (values != null || values.length != 0) {
+                notifyScanCacheStateChanged(values[0]);
+            }
         }
 
         @Override
         protected void onPostExecute(List<CacheCleanerModel> o) {
             super.onPostExecute(o);
+            notifyScanCacheFinish(true, mRootPath, o);
         }
         private List<CacheCleanerModel> scanCache(String rootPath, boolean onlyCurrentDirectory) {
             List<CacheCleanerModel> cacheCleanerModelList = new LinkedList<>();
@@ -149,9 +173,9 @@ public class CacheCleaner {
                 return cacheCleanerModelList;
             }
             if (rootFile.isFile()) {
-                if (filterFile(rootFile)) {
-                    // TODO: 2017/1/31 dqy 建立模型
-                    CacheCleanerModel cacheCleanerModel = new CacheCleanerModel();
+                FileTypeHelper.FileType fileType = getFileType(rootFile);
+                if (fileType != FileTypeHelper.FileType.UNKNOWN) {
+                    CacheCleanerModel cacheCleanerModel = buildCacheCleanerModel(fileType, rootFile);
                     cacheCleanerModelList.add(cacheCleanerModel);
                     publishProgress(cacheCleanerModel);
                 }
@@ -172,7 +196,7 @@ public class CacheCleaner {
         }
     }
 
-    private class DeleteCacheAsyncTask extends AsyncTask {
+    private class DeleteCacheAsyncTask extends AsyncTask<Void, File, Boolean> {
 
         private String mRootPath;
         private boolean mOnlyCurrentDirectory;
@@ -184,12 +208,35 @@ public class CacheCleaner {
         }
 
         @Override
-        protected Boolean doInBackground(Object[] params) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (!isValidPath(mRootPath)) {
+                mIsScanStop = true;
+                notifyDeleteCacheFinish(false, mRootPath);
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Void ... params) {
             if (mIsScanStop) {
                 return false;
             }
             return deleteCache(mRootPath, mOnlyCurrentDirectory);
         }
+
+        @Override
+        protected void onProgressUpdate(File ... values) {
+            super.onProgressUpdate(values);
+            if (values != null && values.length > 0) {
+                notifyDeleteCacheStateChanged(values[0]);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
+
         private boolean deleteCache(String rootPath, boolean onlyCurrentDirectory) {
             if (TextUtils.isEmpty(rootPath)) {
                 return false;
@@ -230,8 +277,42 @@ public class CacheCleaner {
         return true;
     }
 
-    private boolean filterFile(File rootFile) {
+    // 这里需要替换成枚举
+    private FileTypeHelper.FileType getFileType(File rootFile) {
         // TODO: 2017/1/31 dqy 检查文件是否需要清除
-        return true;
+        if (rootFile != null && rootFile.exists() && rootFile.isFile()) {
+
+        }
+        return FileTypeHelper.FileType.UNKNOWN;
     }
+
+
+    private CacheCleanerModel buildCacheCleanerModel(FileTypeHelper.FileType type, File rootFile) {
+        return new CacheCleanerModel(type, rootFile);
+    }
+
+    private void notifyScanCacheStateChanged(CacheCleanerModel cacheCleanerModel) {
+        for (ScanCacheListener listener : mScanCacheListeners) {
+            listener.onStateChanged(cacheCleanerModel);
+        }
+    }
+
+    private void notifyScanCacheFinish(boolean success, String rootPath, List<CacheCleanerModel> cacheCleanerModelList) {
+        for (ScanCacheListener listener : mScanCacheListeners) {
+            listener.onFinish(success, rootPath, cacheCleanerModelList);
+        }
+    }
+
+    private void notifyDeleteCacheStateChanged(File file) {
+        for (DeleteCacheListener listener : mDeleteCacheListeners) {
+            listener.onStateChanged(file);
+        }
+    }
+
+    private void notifyDeleteCacheFinish(boolean success, String rootPath) {
+        for (DeleteCacheListener listener : mDeleteCacheListeners) {
+            listener.onFinish(success, rootPath);
+        }
+    }
+
 }
