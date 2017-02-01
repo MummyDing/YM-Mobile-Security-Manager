@@ -235,6 +235,7 @@ public class CacheCleaner {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+            notifyDeleteCacheFinish(aBoolean, mRootPath);
         }
 
         private boolean deleteCache(String rootPath, boolean onlyCurrentDirectory) {
@@ -242,12 +243,12 @@ public class CacheCleaner {
                 return false;
             }
             File rootFile = new File(rootPath);
-            if (rootFile == null && !rootFile.exists()) {
+            if (rootFile == null || !rootFile.exists()) {
                 return false;
             }
             if (rootFile.isFile()) {
-                rootFile.delete();
                 publishProgress(rootFile);
+                return rootFile.delete();
             } else {
                 File [] fileList = rootFile.listFiles();
                 if (fileList != null) {
@@ -263,7 +264,6 @@ public class CacheCleaner {
             }
             return true;
         }
-
     }
 
     private boolean isValidPath(String rootPath) {
@@ -277,11 +277,9 @@ public class CacheCleaner {
         return true;
     }
 
-    // 这里需要替换成枚举
     private FileTypeHelper.FileType getFileType(File rootFile) {
-        // TODO: 2017/1/31 dqy 检查文件是否需要清除
         if (rootFile != null && rootFile.exists() && rootFile.isFile()) {
-
+            return FileTypeHelper.getFileType(rootFile.getPath());
         }
         return FileTypeHelper.FileType.UNKNOWN;
     }

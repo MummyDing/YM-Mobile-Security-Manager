@@ -1,6 +1,5 @@
 package com.github.mummyding.ymsecurity.util;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -11,7 +10,7 @@ import java.util.Iterator;
 public class FileTypeHelper {
 
     public enum FileType {
-        UNKNOWN, CACHE_FILE, APK_FILE, LARGE_FILE, VIDEO_FILE, AUDIO_FILE, IMAGE_FILE, THUMB_FILE
+        UNKNOWN, COMPRESS_FILE, APK_FILE, LARGE_FILE, VIDEO_FILE, AUDIO_FILE, IMAGE_FILE, DOCUMENT_FILE, THUMB_FILE
     }
 
     // comma separated list of all file extensions supported by the media scanner
@@ -60,7 +59,33 @@ public class FileTypeHelper {
     private static final int FIRST_PLAYLIST_FILE_TYPE = FILE_TYPE_M3U;
     private static final int LAST_PLAYLIST_FILE_TYPE = FILE_TYPE_WPL;
 
+    // apk
     private static final int FILE_TYPE_APK = 44;
+
+    // Compressed file types
+    private static final int FILE_TYPE_Z = 45;
+    private static final int FILE_TYPE_ZIP = 46;
+    private static final int FILE_TYPE_GZ = 47;
+    private static final int FILE_TYPE_GZIP = 48;
+    private static final int FILE_TYPE_TGZ = 49;
+    private static final int FILE_TYPE_RAR = 50;
+    private static final int FILE_TYPE_7Z = 51;
+    private static final int FIRST_COMPRESS_FILE_TYPE = FILE_TYPE_Z;
+    private static final int LAST_COMPRESS_FILE_TYPE = FILE_TYPE_7Z;
+
+    // Document file types
+    private static final int FILE_TYPE_DOC = 52;
+    private static final int FILE_TYPE_DOCX = 53;
+    private static final int FILE_TYPE_PDF = 54;
+    private static final int FILE_TYPE_TXT = 55;
+    private static final int FILE_TYPE_XLS = 56;
+    private static final int FILE_TYPE_PPT = 57;
+    private static final int FILE_TYPE_PPS = 58;
+    private static final int FILE_TYPE_PPTX = 59;
+    private static final int FILE_TYPE_HTML = 60;
+    private static final int FILE_TYPE_HTM = 61;
+    private static final int FIRST_DOCUMENT_FILE_TYPE = FILE_TYPE_DOC;
+    private static final int LAST_DOCUMENT_FILE_TYPE = FILE_TYPE_HTM;
 
     static class MediaFileType {
 
@@ -118,6 +143,25 @@ public class FileTypeHelper {
 
         addFileType("APK", FILE_TYPE_APK, "application/vnd.android");
 
+        addFileType("Z", FILE_TYPE_Z, "application/x-compressed");
+        addFileType("ZIP", FILE_TYPE_ZIP, "application/zip");
+        addFileType("GZ", FILE_TYPE_GZ, "application/x-compressed");
+        addFileType("GZIP", FILE_TYPE_GZIP, "application/x-gzip");
+        addFileType("TGZ", FILE_TYPE_TGZ, "application/gnutar");
+        addFileType("RAR", FILE_TYPE_RAR, "application/x-rar-compressed");
+        addFileType("7Z", FILE_TYPE_7Z, "application/x-7z-compressed");
+
+        addFileType("DOC", FILE_TYPE_DOC, "application/msword");
+        addFileType("DOCX", FILE_TYPE_DOCX, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        addFileType("PDF", FILE_TYPE_PDF, "application/pdf");
+        addFileType("TXT", FILE_TYPE_TXT, "text/plain");
+        addFileType("XLS", FILE_TYPE_XLS, "application/excel");
+        addFileType("PPT", FILE_TYPE_PPT, "application/mspowerpoint");
+        addFileType("PPS", FILE_TYPE_PPS, "application/vnd.ms-powerpoint");
+        addFileType("PPTX", FILE_TYPE_PPTX, "application/vnd.openxmlformats-officedocument.presentationml.presentation");
+        addFileType("HTM", FILE_TYPE_HTML, "text/html");
+        addFileType("HTML", FILE_TYPE_HTM, "text/html");
+
         // compute file extensions list for native Media Scanner
         StringBuilder builder = new StringBuilder();
         Iterator<String> iterator = sFileTypeMap.keySet().iterator();
@@ -155,6 +199,16 @@ public class FileTypeHelper {
                 fileType <= LAST_PLAYLIST_FILE_TYPE);
     }
 
+    public static boolean isCompressFileType(int fileType) {
+        return (fileType >= FIRST_COMPRESS_FILE_TYPE &&
+                fileType <= LAST_COMPRESS_FILE_TYPE);
+    }
+
+    public static boolean isDocumentFileType(int fileType) {
+        return (fileType >= FIRST_DOCUMENT_FILE_TYPE &&
+                fileType <= LAST_DOCUMENT_FILE_TYPE);
+    }
+
     public static boolean isApkFileType(int fileType) {
         return fileType == FILE_TYPE_APK;
     }
@@ -179,6 +233,10 @@ public class FileTypeHelper {
             return FileType.IMAGE_FILE;
         } else if (isApkFileType(type.fileType)) {
             return FileType.APK_FILE;
+        } else if (isCompressFileType(type.fileType)) {
+          return FileType.COMPRESS_FILE;
+        } else if (isDocumentFileType(type.fileType)) {
+          return FileType.DOCUMENT_FILE;
         } else if (isLargeFile(path)) {
             return FileType.LARGE_FILE;
         }
@@ -186,31 +244,8 @@ public class FileTypeHelper {
     }
 
     private static boolean isLargeFile(String path) {
-
+        // TODO: 2017/2/1 待补充
         return false;
-    }
-
-
-    //    //根据视频文件路径判断文件类型
-//    public static boolean isVideoFileType(String path) {  //自己增加
-//        MediaFileType type = getFileType(path);
-//        if(null != type) {
-//            return isVideoFileType(type.fileType);
-//        }
-//        return false;
-//    }
-//    //根据音频文件路径判断文件类型
-//    public static boolean isAudioFileType(String path) {  //自己增加
-//        MediaFileType type = getFileType(path);
-//        if(null != type) {
-//            return isAudioFileType(type.fileType);
-//        }
-//        return false;
-//    }
-    //根据mime类型查看文件类型
-    public static int getFileTypeForMimeType(String mimeType) {
-        Integer value = sMimeTypeMap.get(mimeType);
-        return (value == null ? 0 : value.intValue());
     }
 
 }

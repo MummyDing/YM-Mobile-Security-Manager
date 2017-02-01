@@ -9,7 +9,26 @@ import java.io.File;
  */
 
 public class CacheCleanerModel {
-    public CacheCleanerModel(FileTypeHelper.FileType type, File rootFile) {
 
+    private FileTypeHelper.FileType mFileType;
+    private String mFileName;
+    private String mFilePath;
+
+    public CacheCleanerModel(FileTypeHelper.FileType type, File rootFile) {
+        this.mFileType = type;
+        mFileName = rootFile.getName();
+        mFilePath = rootFile.getAbsolutePath();
+    }
+
+    public FileTypeHelper.FileType getFileType() {
+        return mFileType;
+    }
+
+    public String getFileName() {
+        return mFileName;
+    }
+
+    public String getFilePath() {
+        return mFilePath;
     }
 }
