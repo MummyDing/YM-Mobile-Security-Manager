@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.mummyding.ymsecurity.activity.MemoryCleanActivity;
 import com.github.mummyding.ymsecurity.base.BaseActivity;
 import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
@@ -44,7 +45,8 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
             @Override
             public void onClick(View v) {
 //                MemoryCleaner.getInstance().scanMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
-                CacheCleaner.getInstance().scanCache("/sdcard/Download/");
+//                CacheCleaner.getInstance().scanCache("/sdcard/Download/");
+                MemoryCleanActivity.launch(MainActivity.this);
             }
         });
     }
@@ -95,7 +97,7 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
                 } else if (model.getFileType() == FileTypeHelper.FileType.APK_FILE) {
                     mDisplayText += "apk: " + model.getFileName() + "\n";
                 } else if (model.getFileType() == FileTypeHelper.FileType.DOCUMENT_FILE) {
-                    mDisplayText += "docment: " + model.getFileName() + "\n";
+                    mDisplayText += "document: " + model.getFileName() + "\n";
                 } else if (model.getFileType() == FileTypeHelper.FileType.VIDEO_FILE) {
                     mDisplayText += "video: " + model.getFileName() + "\n";
                 } else if (model.getFileType() == FileTypeHelper.FileType.COMPRESS_FILE) {

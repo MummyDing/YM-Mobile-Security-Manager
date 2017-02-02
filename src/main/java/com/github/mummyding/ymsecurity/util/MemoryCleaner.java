@@ -90,8 +90,11 @@ public class MemoryCleaner {
             for (int i = 0; i < mProcessInfoList.size(); i++) {
                 ActivityManager.RunningAppProcessInfo appProcessInfo = mProcessInfoList.get(i);
                 if (appProcessInfo.importance > mCleanLevel) {
+                    MemoryCleanerModel model = new MemoryCleanerModel(mActivityManager, mPackageManager, appProcessInfo);
+                    if (model.check()) {
                         mCurrentProcessIndex++;
-                        publishProgress(new MemoryCleanerModel(mActivityManager, mPackageManager, appProcessInfo));
+                        publishProgress(model);
+                    }
                 }
             }
             return currentMemoryInfo;
