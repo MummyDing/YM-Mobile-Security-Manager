@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -136,16 +138,34 @@ public class MemoryCleaner {
         return sMemoryCleaner;
     }
 
-    public void clearMemory(Context context) {
-        clearMemory(context, CLEAN_LEVEL_NORMAL);
+    public void scanMemory(Context context) {
+        scanMemory(context, CLEAN_LEVEL_NORMAL);
     }
 
-    public void clearMemory(Context context, int cleanLevel) {
+    public void scanMemory(Context context, int cleanLevel) {
         if (cleanLevel == CLEAN_LEVEL_DEEP || cleanLevel == CLEAN_LEVEL_NORMAL) {
             mCleanLevel = cleanLevel;
         }
         mMemoryCleanTask = new MemoryCleanerTask(context);
         mMemoryCleanTask.execute();
+    }
+
+    public void killProcess(Context context, String packageName) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.killBackgroundProcesses(packageName);
+        Method forceStopPackage = null;
+        try {
+            forceStopPackage = activityManager.getClass()
+                    .getDeclaredMethod("forceStopPackage", String.class);
+            forceStopPackage.setAccessible(true);
+            forceStopPackage.invoke(activityManager, packageName);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean cancel() {

@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
         mProgressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                MemoryCleaner.getInstance().clearMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
+//                MemoryCleaner.getInstance().scanMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
                 CacheCleaner.getInstance().scanCache("/sdcard/Download/");
             }
         });
