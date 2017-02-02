@@ -2,6 +2,7 @@ package com.github.mummyding.ymsecurity.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ public class MemoryCleaner {
     private class MemoryCleanerTask extends AsyncTask<Void, MemoryCleanerModel, ActivityManager.MemoryInfo> {
 
         private ActivityManager mActivityManager;
+        private PackageManager mPackageManager;
         private List<ActivityManager.RunningAppProcessInfo> mProcessInfoList;
         private boolean mIsTaskStop = true;
         private int mCurrentProcessIndex;
@@ -47,6 +49,7 @@ public class MemoryCleaner {
             super();
             if (context != null) {
                 mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                mPackageManager = context.getPackageManager();
                 mIsTaskStop = false;
             }
         }
@@ -57,7 +60,7 @@ public class MemoryCleaner {
             if (mIsTaskStop) {
                 return;
             }
-            if (mActivityManager == null) {
+            if (mActivityManager == null || mPackageManager == null) {
                 notifyMemoryCleanerFinish(false, null);
                 return;
             }
@@ -85,14 +88,8 @@ public class MemoryCleaner {
             for (int i = 0; i < mProcessInfoList.size(); i++) {
                 ActivityManager.RunningAppProcessInfo appProcessInfo = mProcessInfoList.get(i);
                 if (appProcessInfo.importance > mCleanLevel) {
-                    String[] pkgList = appProcessInfo.pkgList;
-                    for (int j = 0; j < pkgList.length; j++) {
-                        mActivityManager.killBackgroundProcesses(pkgList[j]);
-                        currentMemoryInfo = getMemoryInfo(mActivityManager);
                         mCurrentProcessIndex++;
-                        publishProgress(new MemoryCleanerModel(appProcessInfo.processName + ":" + pkgList[j], lastMemoryInfo, currentMemoryInfo));
-                        lastMemoryInfo = currentMemoryInfo;
-                    }
+                        publishProgress(new MemoryCleanerModel(mActivityManager, mPackageManager, appProcessInfo));
                 }
             }
             return currentMemoryInfo;

@@ -1,7 +1,9 @@
 package com.github.mummyding.ymsecurity.model;
 
 import android.app.ActivityManager;
-import android.text.TextUtils;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 
 import com.github.mummyding.ymsecurity.util.MemoryCleaner;
 
@@ -12,14 +14,30 @@ import com.github.mummyding.ymsecurity.util.MemoryCleaner;
 public class MemoryCleanerModel {
 
     private String mPkgName;
-    private long mMemoryCleaned;
+    private String mAppName;
+    private Drawable mAppLogo;
+    private long mMemorySize;
 
-    public MemoryCleanerModel(String pkgName, ActivityManager.MemoryInfo lastMemoryInfo, ActivityManager.MemoryInfo currentMemoryInfo) {
-        if (TextUtils.isEmpty(pkgName) || lastMemoryInfo == null || currentMemoryInfo == null) {
+    public MemoryCleanerModel(ActivityManager activityManager, PackageManager packageManager, ActivityManager.RunningAppProcessInfo appProcessInfo) {
+        if (activityManager == null || packageManager == null || appProcessInfo == null) {
             return;
         }
-        mPkgName = pkgName;
-        mMemoryCleaned = (currentMemoryInfo.availMem - lastMemoryInfo.availMem) / MemoryCleaner.MB;
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = packageManager.getApplicationInfo(appProcessInfo.processName, 0);
+            String processName = appInfo.processName;
+            if (processName.indexOf(":") == -1) {
+                mPkgName = processName;
+            } else {
+                mPkgName = processName.split(":")[0];
+            }
+
+            mAppName = appInfo.loadLabel(packageManager).toString();
+            mAppLogo = appInfo.loadLogo(packageManager);
+            mMemorySize = activityManager.getProcessMemoryInfo(new int[]{appProcessInfo.pid})[0].getTotalPrivateDirty() * 1024;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getPkgName() {
@@ -27,6 +45,18 @@ public class MemoryCleanerModel {
     }
 
     public long getMemoryCleaned() {
-        return mMemoryCleaned;
+        return mMemorySize;
+    }
+
+    public String getAppName() {
+        return mAppName;
+    }
+
+    public Drawable getAppLogo() {
+        return mAppLogo;
+    }
+
+    public long getMemorySize() {
+        return mMemorySize;
     }
 }
