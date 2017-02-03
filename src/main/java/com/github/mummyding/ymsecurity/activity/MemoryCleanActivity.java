@@ -69,4 +69,10 @@ public class MemoryCleanActivity extends SwipeBackActivity implements MemoryClea
         mListAdapter = new MemoryCleanerListAdapter(this, mMemoryCleanerModelList);
         mListView.setAdapter(mListAdapter);
     }
+
+    @Override
+    protected void onDestroy() {
+        MemoryCleaner.getInstance().removeMemoryStateChangedListener(this);
+        super.onDestroy();
+    }
 }

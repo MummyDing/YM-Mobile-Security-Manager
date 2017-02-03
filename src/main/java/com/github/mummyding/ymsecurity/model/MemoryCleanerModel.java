@@ -33,7 +33,6 @@ public class MemoryCleanerModel {
             } else {
                 mPkgName = processName.split(":")[0];
             }
-
             mAppName = appInfo.loadLabel(packageManager).toString();
             mAppLogo = appInfo.loadIcon(packageManager);
             mMemorySize = activityManager.getProcessMemoryInfo(new int[]{appProcessInfo.pid})[0].getTotalPrivateDirty() * 1024;

@@ -11,8 +11,7 @@ import java.io.IOException;
 
 public class FileUtil {
 
-    public static long getFileSize(String path) {
-        File file = new File(path);
+    public static long getFileSize(File file) {
         long size = 0;
         if (file != null && file.exists() && file.isFile()) {
             FileInputStream is = null;

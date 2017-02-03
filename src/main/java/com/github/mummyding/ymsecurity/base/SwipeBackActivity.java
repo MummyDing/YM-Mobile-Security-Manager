@@ -41,7 +41,7 @@ public class SwipeBackActivity extends BaseActivity {
     /**
      * 是否可以在页面任意位置右滑关闭页面，如果是false则从左边滑才可以关闭。
      */
-    protected boolean swipeAnyWhere = false;
+    protected boolean swipeAnyWhere = true;
 
     public SwipeBackActivity() {
 

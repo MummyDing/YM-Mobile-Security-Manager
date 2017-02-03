@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.mummyding.ymsecurity.activity.CacheCleanActivity;
 import com.github.mummyding.ymsecurity.activity.MemoryCleanActivity;
 import com.github.mummyding.ymsecurity.base.BaseActivity;
 import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
@@ -46,7 +47,8 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
             public void onClick(View v) {
 //                MemoryCleaner.getInstance().scanMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
 //                CacheCleaner.getInstance().scanCache("/sdcard/Download/");
-                MemoryCleanActivity.launch(MainActivity.this);
+//                MemoryCleanActivity.launch(MainActivity.this);
+                CacheCleanActivity.launch(MainActivity.this);
             }
         });
     }
@@ -109,6 +111,7 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
         } else {
             mDisplayText += "fail";
         }
+
         mDisplayView.setText(mDisplayText);
     }
 
