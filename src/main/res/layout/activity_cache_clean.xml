@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:textColor="#000"/>
+
+    <Button
+        android:id="@+id/clean_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="一键清理"/>
 
     <ExpandableListView
         android:id="@+id/expand_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         android:groupIndicator="@null"/>
 </RelativeLayout>

@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.model.ApkInfoModel;
 import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
 import com.github.mummyding.ymsecurity.util.ApkUtil;
 import com.github.mummyding.ymsecurity.util.FileTypeHelper;
+import com.github.mummyding.ymsecurity.util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
             CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.check_box);
             TextView cacheSize = (TextView) convertView.findViewById(R.id.cache_size);
             groupTitle.setText(itemGroup.mTitle);
-            cacheSize.setText(itemGroup.mCacheSize + "");
+            cacheSize.setText(FileUtil.formatSize(itemGroup.mCacheSize));
             checkBox.setChecked(itemGroup.isChecked());
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -81,12 +82,14 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
         }
         ItemChild itemChild = (ItemChild) getChild(groupPosition, childPosition);
         if (itemChild != null) {
+            ImageView childLogo = (ImageView) convertView.findViewById(R.id.logo);
             TextView childTitle = (TextView) convertView.findViewById(R.id.child_title);
             CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.check_box);
             TextView cacheSize = (TextView) convertView.findViewById(R.id.cache_size);
+            childLogo.setImageDrawable(itemChild.mIcon);
             childTitle.setText(itemChild.mTitle);
             checkBox.setChecked(itemChild.mIsChecked);
-            cacheSize.setText(itemChild.mCacheSize + "");
+            cacheSize.setText(FileUtil.formatSize(itemChild.mCacheSize));
         }
         return convertView;
     }

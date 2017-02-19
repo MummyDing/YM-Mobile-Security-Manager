@@ -26,6 +26,7 @@ public class CacheCleaner {
     private static CacheCleaner sCacheCleaner;
     private ScanCacheAsyncTask mScanCacheAsyncTask;
     private DeleteCacheAsyncTask mDeleteCacheAsyncTask;
+    private DeleteFilesAsyncTask mDeleteFilesAsyncTask;
 
     private CacheCleaner() {
     }
@@ -92,6 +93,16 @@ public class CacheCleaner {
         return true;
     }
 
+    public boolean deleteCache(List<CacheCleanerModel> list) {
+        if (mDeleteFilesAsyncTask != null && mDeleteCacheAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            Log.d(TAG, "DeleteFilesTask is business");
+            return false;
+        }
+        mDeleteFilesAsyncTask = new DeleteFilesAsyncTask(list);
+        mDeleteFilesAsyncTask.execute();
+        return true;
+    }
+
     public boolean deleteCache(String rootPath) {
         return deleteCache(rootPath, false);
     }
@@ -147,7 +158,7 @@ public class CacheCleaner {
             if (mIsScanStop) {
                 return new ArrayList<>();
             }
-            return scanCache(mRootPath, mOnlyCurrentDirectory);
+            return scanCache(mRootPath, mOnlyCurrentDirectory, 0);
         }
 
         @Override
@@ -163,13 +174,17 @@ public class CacheCleaner {
             super.onPostExecute(o);
             notifyScanCacheFinish(true, mRootPath, o);
         }
-        private List<CacheCleanerModel> scanCache(String rootPath, boolean onlyCurrentDirectory) {
+
+        private List<CacheCleanerModel> scanCache(String rootPath, boolean onlyCurrentDirectory, int depth) {
             List<CacheCleanerModel> cacheCleanerModelList = new LinkedList<>();
+            if (depth >= 4) {
+                return cacheCleanerModelList;
+            }
             if (TextUtils.isEmpty(rootPath)) {
                 return cacheCleanerModelList;
             }
             File rootFile = new File(rootPath);
-            if (rootFile == null && !rootFile.exists()) {
+            if (rootFile == null || !rootFile.exists()) {
                 return cacheCleanerModelList;
             }
             if (rootFile.isFile()) {
@@ -180,14 +195,19 @@ public class CacheCleaner {
                     publishProgress(cacheCleanerModel);
                 }
             } else {
-                File [] fileList = rootFile.listFiles();
+                File [] fileList = null;
+                try {
+                  fileList = rootFile.listFiles();
+                } catch (Exception e) {
+
+                }
                 if (fileList != null) {
                     for (int i = 0 ; i < fileList.length ; i++) {
                         if (fileList[i] == null) {
                             continue;
                         }
                         if (fileList[i].isFile() || onlyCurrentDirectory == false) {
-                            cacheCleanerModelList.addAll(scanCache(fileList[i].getAbsolutePath(), onlyCurrentDirectory));
+                            cacheCleanerModelList.addAll(scanCache(fileList[i].getAbsolutePath(), onlyCurrentDirectory, depth + 1));
                         }
                     }
                 }
@@ -261,6 +281,56 @@ public class CacheCleaner {
                         }
                     }
                 }
+            }
+            return true;
+        }
+    }
+
+    private class DeleteFilesAsyncTask extends AsyncTask<Void, String, Boolean> {
+
+        private List<CacheCleanerModel> mCacheCleanerList;
+        private boolean mIsDeleteStop;
+        public DeleteFilesAsyncTask(List<CacheCleanerModel> cacheCleanerList) {
+            this.mCacheCleanerList = cacheCleanerList;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (mCacheCleanerList == null) {
+                mIsDeleteStop = true;
+                notifyDeleteCacheFinish(false, "");
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            if (values != null && values.length > 0) {
+                notifyDeleteCacheStateChanged(null);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+//            notifyDeleteCacheFinish(aBoolean, "");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if (mIsDeleteStop) {
+                return false;
+            }
+            for (CacheCleanerModel model : mCacheCleanerList) {
+                if (TextUtils.isEmpty(model.getFileName())) {
+                    continue;
+                }
+                File file = new File(model.getFilePath());
+                if (file == null || !file.exists()) {
+                    continue;
+                }
+                file.delete();
             }
             return true;
         }
