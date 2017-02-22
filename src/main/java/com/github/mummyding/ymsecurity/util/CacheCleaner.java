@@ -18,6 +18,7 @@ import java.util.Set;
 public class CacheCleaner {
 
     private static final String TAG = "CacheCleaner";
+    private static CacheCleaner sCacheCleaner;
     private DeleteFilesAsyncTask mDeleteFilesAsyncTask;
 
     public interface DeleteCacheListener {
@@ -25,6 +26,17 @@ public class CacheCleaner {
         void onStateChanged(FileInfoModel fileInfo, boolean success);
 
         void onFinish(boolean success);
+    }
+
+    private CacheCleaner() {
+
+    }
+
+    public static CacheCleaner getInstance() {
+        if (sCacheCleaner == null) {
+            sCacheCleaner = new CacheCleaner();
+        }
+        return sCacheCleaner;
     }
 
     public boolean deleteCache(List<FileInfoModel> list) {
