@@ -12,13 +12,10 @@ import com.github.mummyding.ymsecurity.base.BaseActivity;
 import com.github.mummyding.ymsecurity.model.FileInfoModel;
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
 import com.github.mummyding.ymsecurity.util.CacheScanner;
-import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.MemoryCleaner;
-import com.github.mummyding.ymsecurity.widget.YMProgressBar;
+import com.github.mummyding.ymsecurity.ui.widget.YMProgressBar;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCleanerStateChangedListener, CacheScanner.ScanCacheListener/*, CacheScanner.DeleteCacheListener*/ {
 

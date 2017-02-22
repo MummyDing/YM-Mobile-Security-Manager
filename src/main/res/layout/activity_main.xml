@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <com.github.mummyding.ymsecurity.widget.TitleBar
+    <com.github.mummyding.ymsecurity.ui.widget.TitleBar
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
 
-    <com.github.mummyding.ymsecurity.widget.YMProgressBar
+    <com.github.mummyding.ymsecurity.ui.widget.YMProgressBar
         android:id="@+id/progressbar"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -25,14 +25,14 @@
         android:layout_marginTop="30dp"
         android:layout_below="@+id/progressbar">
 
-        <com.github.mummyding.ymsecurity.widget.YMImageButton
+        <com.github.mummyding.ymsecurity.ui.widget.YMImageButton
             android:id="@+id/speed_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:background="@color/white"/>
 
-        <com.github.mummyding.ymsecurity.widget.YMImageButton
+        <com.github.mummyding.ymsecurity.ui.widget.YMImageButton
             android:id="@+id/clean_button"
             android:layout_width="50dp"
             android:layout_height="50dp"

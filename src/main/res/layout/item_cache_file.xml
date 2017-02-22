@@ -10,10 +10,20 @@
         android:layout_centerVertical="true"/>
 
     <TextView
-        android:id="@+id/memory_size"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:textSize="20dp"/>
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/memory_size"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="20sp"/>
+
+    <com.github.mummyding.ymsecurity.ui.widget.YMCheckBox
+        android:id="@+id/check_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.github.mummyding.ymsecurity.widget;
+package com.github.mummyding.ymsecurity.ui.widget;
 
 import android.app.Activity;
 import android.content.Context;
