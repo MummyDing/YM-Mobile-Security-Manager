@@ -12,22 +12,24 @@ import android.widget.Toast;
 import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.adapter.CacheCleanListAdapter;
 import com.github.mummyding.ymsecurity.base.SwipeBackActivity;
-import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
-import com.github.mummyding.ymsecurity.util.CacheCleaner;
+import com.github.mummyding.ymsecurity.model.FileInfoModel;
+import com.github.mummyding.ymsecurity.util.CacheScanner;
 import com.github.mummyding.ymsecurity.util.FileUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by MummyDing on 2017/2/3.
  */
 
-public class CacheCleanActivity extends SwipeBackActivity implements CacheCleaner.ScanCacheListener {
+public class CacheCleanActivity extends SwipeBackActivity implements CacheScanner.ScanCacheListener {
 
     private TextView mTip;
     private Button mCleanButton;
     private ExpandableListView mExpandableListView;
     private CacheCleanListAdapter mAdapter;
+    private List<FileInfoModel> mFileInfoList = new ArrayList<>();
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, CacheCleanActivity.class);
@@ -45,35 +47,36 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheCleane
         mTip = (TextView) findViewById(R.id.tip);
         mCleanButton = (Button) findViewById(R.id.clean_button);
         mExpandableListView = (ExpandableListView) findViewById(R.id.expand_list_view);
-        CacheCleaner.getInstance().addScanCacheListener(this);
-        CacheCleaner.getInstance().scanCache("/");
+        CacheScanner.getInstance().addScanCacheListener(this);
+        CacheScanner.getInstance().scanCache("/");
         mCleanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                CacheCleaner.getInstance().deleteCache()
+//                CacheScanner.getInstance().deleteCache()
             }
         });
     }
 
     @Override
-    public void onStateChanged(CacheCleanerModel cacheCleanerModel) {
-        if (cacheCleanerModel != null) {
-            mTip.setText(cacheCleanerModel.getFileName() + " : " + FileUtil.formatSize(cacheCleanerModel.getCacheSize()));
+    public void onStateChanged(FileInfoModel fileInfoModel) {
+        if (fileInfoModel != null) {
+            mTip.setText(fileInfoModel.getFileName() + " : " + FileUtil.formatSize(fileInfoModel.getCacheSize()));
+            mFileInfoList.add(fileInfoModel);
         }
     }
 
     @Override
-    public void onFinish(boolean success, String rootPath, List<CacheCleanerModel> cacheCleanerModelList) {
+    public void onFinish(boolean success) {
         Toast.makeText(this, "Finish" + success, Toast.LENGTH_LONG).show();
         if (success) {
-            mAdapter = new CacheCleanListAdapter(this, cacheCleanerModelList);
+            mAdapter = new CacheCleanListAdapter(this, mFileInfoList);
             mExpandableListView.setAdapter(mAdapter);
         }
     }
 
     @Override
     protected void onDestroy() {
-        CacheCleaner.getInstance().removeScanCacheListener(this);
+        CacheScanner.getInstance().removeScanCacheListener(this);
         super.onDestroy();
     }
 }

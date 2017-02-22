@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mummyding.ymsecurity.activity.CacheCleanActivity;
-import com.github.mummyding.ymsecurity.activity.MemoryCleanActivity;
 import com.github.mummyding.ymsecurity.base.BaseActivity;
-import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
+import com.github.mummyding.ymsecurity.model.FileInfoModel;
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
-import com.github.mummyding.ymsecurity.util.CacheCleaner;
+import com.github.mummyding.ymsecurity.util.CacheScanner;
 import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.MemoryCleaner;
 import com.github.mummyding.ymsecurity.widget.YMProgressBar;
@@ -21,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCleanerStateChangedListener, CacheCleaner.ScanCacheListener, CacheCleaner.DeleteCacheListener {
+public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCleanerStateChangedListener, CacheScanner.ScanCacheListener/*, CacheScanner.DeleteCacheListener*/ {
 
     private static final String TAG = "MainActivity";
     private YMProgressBar mProgressBar;
@@ -39,14 +38,14 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
             Log.e(TAG, e.getMessage());
         }
         MemoryCleaner.getInstance().addMemoryStateChangedListener(this);
-        CacheCleaner.getInstance().addScanCacheListener(this);
-        CacheCleaner.getInstance().addDeleteCacheListener(this);
+        CacheScanner.getInstance().addScanCacheListener(this);
+//        CacheScanner.getInstance().addDeleteCacheListener(this);
         Log.d(TAG, "inner: " + Environment.getRootDirectory().getParentFile().listFiles());
         mProgressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                MemoryCleaner.getInstance().scanMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
-//                CacheCleaner.getInstance().scanCache("/sdcard/Download/");
+//                CacheScanner.getInstance().scanCache("/sdcard/Download/");
 //                MemoryCleanActivity.launch(MainActivity.this);
                 CacheCleanActivity.launch(MainActivity.this);
             }
@@ -82,18 +81,18 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
     }
 
     @Override
-    public void onStateChanged(CacheCleanerModel cacheCleanerModel) {
-        mDisplayText = "FileName:　" + cacheCleanerModel.getFileName() +
-                " FilePath: " + cacheCleanerModel.getFilePath() + "\n";
+    public void onStateChanged(FileInfoModel fileInfoModel) {
+        mDisplayText = "FileName:　" + fileInfoModel.getFileName() +
+                " FilePath: " + fileInfoModel.getFilePath() + "\n";
         mDisplayView.setText(mDisplayText);
 
     }
 
     @Override
-    public void onFinish(boolean success, String rootPath, List<CacheCleanerModel> cacheCleanerModelList) {
-        if (success) {
-            mDisplayText += rootPath + cacheCleanerModelList.size() + "\n";
-            for (CacheCleanerModel model : cacheCleanerModelList) {
+    public void onFinish(boolean success) {
+        /*if (success) {
+            mDisplayText += fileInfoModelList.size() + "\n";
+            for (FileInfoModel model : fileInfoModelList) {
                 if (model.getFileType() == FileTypeHelper.FileType.IMAGE_FILE) {
                     mDisplayText += "image: " + model.getFileName() + "\n";
                 } else if (model.getFileType() == FileTypeHelper.FileType.APK_FILE) {
@@ -110,19 +109,19 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
             }
         } else {
             mDisplayText += "fail";
-        }
+        }*/
 
         mDisplayView.setText(mDisplayText);
     }
 
-    @Override
-    public void onStateChanged(File file) {
+   /* @Override
+    public void onStateChanged(FileInfoModel file) {
         mDisplayText += "onStateChanged : " + file;
     }
 
     @Override
-    public void onFinish(boolean success, String rootPath) {
-        mDisplayText += success + rootPath;
+    public void onFinish(boolean success) {
+        mDisplayText += success ;
         mDisplayView.setText(mDisplayText);
-    }
+    }*/
 }

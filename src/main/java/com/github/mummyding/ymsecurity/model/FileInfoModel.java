@@ -9,14 +9,14 @@ import java.io.File;
  * Created by MummyDing on 2017/1/31.
  */
 
-public class CacheCleanerModel {
+public class FileInfoModel {
 
     private FileTypeHelper.FileType mFileType;
     private String mFileName;
     private String mFilePath;
     private long mCacheSize;
 
-    public CacheCleanerModel(FileTypeHelper.FileType type, File rootFile) {
+    public FileInfoModel(FileTypeHelper.FileType type, File rootFile) {
         this.mFileType = type;
         mFileName = rootFile.getName();
         mFilePath = rootFile.getAbsolutePath();

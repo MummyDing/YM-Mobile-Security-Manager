@@ -1,5 +1,7 @@
 package com.github.mummyding.ymsecurity.util;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,5 +49,23 @@ public class FileUtil {
             fileSizeString = df.format((double) size / 1073741824) + "GB";
         }
         return fileSizeString;
+    }
+
+    public static boolean isValidPath(String rootPath) {
+        if (TextUtils.isEmpty(rootPath)) {
+            return false;
+        }
+        File rootFile = new File(rootPath);
+        if (rootFile == null && !rootFile.exists()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isExist(File file) {
+        if (file == null) {
+            return false;
+        }
+        return file.exists();
     }
 }

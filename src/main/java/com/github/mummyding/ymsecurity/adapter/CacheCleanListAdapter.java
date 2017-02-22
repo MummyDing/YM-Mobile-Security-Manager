@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.model.ApkInfoModel;
-import com.github.mummyding.ymsecurity.model.CacheCleanerModel;
+import com.github.mummyding.ymsecurity.model.FileInfoModel;
 import com.github.mummyding.ymsecurity.util.ApkUtil;
 import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.FileUtil;
@@ -31,7 +31,7 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
     private List<ItemGroup> mGroupDataList = new ArrayList<>();
     private List<List<ItemChild>> mChildDataList = new ArrayList<>();
 
-    public CacheCleanListAdapter(Context mContext, List<CacheCleanerModel> cacheModelList) {
+    public CacheCleanListAdapter(Context mContext, List<FileInfoModel> cacheModelList) {
         this.mContext = mContext;
         buildItem(cacheModelList);
     }
@@ -94,7 +94,7 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    private void buildItem(List<CacheCleanerModel> cacheModelList) {
+    private void buildItem(List<FileInfoModel> cacheModelList) {
         if (cacheModelList == null) {
             return;
         }
@@ -124,7 +124,7 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
         mGroupDataList.add(audioGroup);
         mChildDataList.add(new ArrayList<ItemChild>());
 
-        for (CacheCleanerModel model : cacheModelList) {
+        for (FileInfoModel model : cacheModelList) {
             FileTypeHelper.FileType type = model.getFileType();
             if (type == FileTypeHelper.FileType.APK_FILE) {
                 ApkInfoModel apkInfoModel = ApkUtil.getApkInfo(model.getFilePath());
@@ -274,7 +274,7 @@ public class CacheCleanListAdapter extends BaseExpandableListAdapter {
         boolean mIsChecked;
         long mCacheSize;
 
-        void setSrc(CacheCleanerModel model) {
+        void setSrc(FileInfoModel model) {
             mTitle = model.getFileName();
             mCacheSize = model.getCacheSize();
             mIsChecked = true;
