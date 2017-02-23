@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".activity.MemoryCleanActivity" />
         <activity android:name=".activity.CacheCleanActivity"/>
+        <service android:name=".service.CacheScannerService"/>
     </application>
 
 </manifest>

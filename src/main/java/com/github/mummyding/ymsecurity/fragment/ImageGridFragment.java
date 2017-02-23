@@ -7,4 +7,5 @@ import android.support.v4.app.Fragment;
  */
 
 public class ImageGridFragment extends Fragment {
+
 }

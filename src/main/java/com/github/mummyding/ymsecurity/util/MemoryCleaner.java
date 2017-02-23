@@ -35,7 +35,9 @@ public class MemoryCleaner {
 
     public interface MemoryCleanerStateChangedListener {
         void onStart(int processCount, ActivityManager.MemoryInfo memoryInfo);
+
         void onMemoryStateChanged(int processIndex, MemoryCleanerModel memoryCleanerModel);
+
         void onFinish(boolean success, ActivityManager.MemoryInfo memoryInfo);
     }
 
@@ -220,4 +222,4 @@ public class MemoryCleaner {
             listener.onFinish(success, memoryInfo);
         }
     }
- }
+}

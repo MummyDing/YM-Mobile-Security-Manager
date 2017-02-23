@@ -3,8 +3,8 @@ package com.github.mummyding.ymsecurity.fragment;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by dingqinying on 17/2/22.
+ * Created by dingqinying on 17/2/23.
  */
 
-public class CacheListFragment extends Fragment {
+public class CacheFileListFragment extends Fragment {
 }

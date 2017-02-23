@@ -25,6 +25,15 @@ import java.util.List;
 
 public class CacheGroupListView extends RecyclerView implements IView<List<CacheGroupViewModel>> {
 
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    private OnItemClickListener mListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     private Context mContext;
     private LinearLayoutManager mLayoutManager;
     private CacheGroupListAdapter mAdapter;
@@ -92,11 +101,19 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
         }
 
         @Override
-        public void onBindViewHolder(VH holder, int position) {
+        public void onBindViewHolder(VH holder, final int position) {
             CacheGroupViewModel cacheGroup = getItem(position);
             if (cacheGroup != null) {
                 holder.mLogo.setDrawable(cacheGroup.getDrawable());
                 holder.mMemorySize.setText(FileUtil.formatSize(cacheGroup.getSize()));
+                holder.mItemView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mListener != null) {
+                            mListener.onClick(position);
+                        }
+                    }
+                });
             }
         }
 
