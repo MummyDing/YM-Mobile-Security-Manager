@@ -64,7 +64,7 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
 
     @Override
     public void bindViewModel(List<CacheGroupViewModel> cacheGroupList) {
-        if (cacheGroupList != null || cacheGroupList.isEmpty()) {
+        if (cacheGroupList == null || cacheGroupList.isEmpty()) {
             return;
         }
         mCacheGroupList.clear();
@@ -73,7 +73,7 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
 
     @Override
     public void update() {
-        if (mCacheGroupList != null || mCacheGroupList.isEmpty()) {
+        if (mCacheGroupList == null || mCacheGroupList.isEmpty()) {
             return;
         }
         mAdapter.setData(mCacheGroupList);
@@ -95,7 +95,7 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cache_group, parent);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cache_group, parent, false);
             VH vh = new VH(view);
             return vh;
         }
@@ -104,7 +104,7 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
         public void onBindViewHolder(VH holder, final int position) {
             CacheGroupViewModel cacheGroup = getItem(position);
             if (cacheGroup != null) {
-                holder.mLogo.setDrawable(cacheGroup.getDrawable());
+                holder.mLogo.setDrawable(/*cacheGroup.getDrawable()*/ getResources().getDrawable(R.mipmap.ic_launcher));
                 holder.mMemorySize.setText(FileUtil.formatSize(cacheGroup.getSize()));
                 holder.mItemView.setOnClickListener(new OnClickListener() {
                     @Override

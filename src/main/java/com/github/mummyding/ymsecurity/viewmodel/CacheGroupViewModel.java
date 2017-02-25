@@ -2,6 +2,9 @@ package com.github.mummyding.ymsecurity.viewmodel;
 
 import android.graphics.drawable.Drawable;
 
+import com.github.mummyding.ymsecurity.model.FileInfoModel;
+import com.github.mummyding.ymsecurity.util.FileTypeHelper;
+
 /**
  * Created by dingqinying on 17/2/22.
  */
@@ -12,9 +15,8 @@ public class CacheGroupViewModel {
     private String mName;
     private long mSize;
 
-    public CacheGroupViewModel(String name, Drawable drawable) {
-        this.mName = name;
-        this.mDrawable = drawable;
+
+    public CacheGroupViewModel(FileTypeHelper.FileType fileType) {
     }
 
     public Drawable getDrawable() {
@@ -30,6 +32,6 @@ public class CacheGroupViewModel {
     }
 
     public void addSize(long size) {
-        this.mSize += size;
+        mSize += size;
     }
 }

@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal">
 
-    <com.github.mummyding.ymsecurity.ui.widget.YMProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:textColor="#000" />
 
     <com.github.mummyding.ymsecurity.ui.listview.CacheGroupListView
         android:id="@+id/cache_group_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/progressbar" />
+        android:layout_below="@id/tip"/>
+
 </RelativeLayout>
