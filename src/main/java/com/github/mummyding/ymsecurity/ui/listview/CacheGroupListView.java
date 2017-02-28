@@ -105,7 +105,7 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
         public void onBindViewHolder(VH holder, final int position) {
             CacheGroupViewModel cacheGroup = getItem(position);
             if (cacheGroup != null) {
-                holder.mLogo.setDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+                holder.mLogo.setDrawable(getResources().getDrawable(FileTypeHelper.getFileIconResId(cacheGroup.getFileType())));
                 holder.mTypeName.setText(cacheGroup.getName());
                 holder.mMemorySize.setText(FileUtil.formatSize(cacheGroup.getSize()));
                 holder.mItemView.setOnClickListener(new OnClickListener() {

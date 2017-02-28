@@ -16,6 +16,10 @@ public class ApkInfoModel {
     private Drawable mIcon;
     private long mSize;
 
+    public ApkInfoModel() {
+
+    }
+
     public ApkInfoModel(String apkPath, String pkgName, String appName, int versionCode, String versionName, Drawable icon) {
         this.mApkPath = apkPath;
         this.mPkgName = pkgName;

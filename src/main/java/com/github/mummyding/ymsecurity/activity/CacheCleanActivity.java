@@ -79,10 +79,6 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheScanne
         }
     }
 
-    private void resetData() {
-
-    }
-
     @Override
     public void onStateChanged(FileInfoModel fileInfoModel) {
         if (fileInfoModel != null) {

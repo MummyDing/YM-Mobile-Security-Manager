@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
 import com.github.mummyding.ymsecurity.YMApplication;
@@ -25,14 +26,19 @@ public class ApkUtil {
             sPackageManager = sContext.getPackageManager();
         }
         PackageInfo packageInfo = sPackageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
-        ApkInfoModel model = null;
+        ApkInfoModel model = new ApkInfoModel();
         if (packageInfo != null) {
             ApplicationInfo appInfo = packageInfo.applicationInfo;
-            String appName = sPackageManager.getApplicationLabel(appInfo).toString();
+            String appName =  "";
+            try {
+                appName = sPackageManager.getApplicationLabel(appInfo).toString();
+            } catch (Resources.NotFoundException e) {
+
+            }
             String pkgName = appInfo.packageName;
             String versionName = packageInfo.versionName;
             int versionCode = packageInfo.versionCode;
-            Drawable icon = sPackageManager.getApplicationIcon(appInfo);
+            Drawable icon = appInfo.loadIcon(sPackageManager);
             model = new ApkInfoModel(path, pkgName, appName, versionCode, versionName, icon);
         }
         return model;

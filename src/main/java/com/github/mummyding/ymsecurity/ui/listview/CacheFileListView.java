@@ -15,6 +15,8 @@ import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.ui.IView;
 import com.github.mummyding.ymsecurity.ui.widget.YMCheckBox;
 import com.github.mummyding.ymsecurity.ui.widget.YMImageView;
+import com.github.mummyding.ymsecurity.util.ApkUtil;
+import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.FileUtil;
 import com.github.mummyding.ymsecurity.viewmodel.CacheFileViewModel;
 
@@ -59,7 +61,13 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
         public void onBindViewHolder(VH holder, int position) {
             CacheFileViewModel cacheFile = getItem(position);
             if (cacheFile != null) {
-                holder.mLogo.setDrawable(cacheFile.getDrawable());
+                switch (cacheFile.getFileType()) {
+                    case APK_FILE:
+                        holder.mLogo.setDrawable(ApkUtil.getApkInfo(cacheFile.getFilePath()).getIcon());
+                        break;
+                    default:
+                        holder.mLogo.setDrawable(getResources().getDrawable(FileTypeHelper.getFileIconResId(cacheFile.getFilePath())));
+                }
                 holder.mName.setText(cacheFile.getName());
                 holder.mSize.setText(FileUtil.formatSize(cacheFile.getSize()));
                 holder.mCheckBox.setChecked(cacheFile.isChecked());

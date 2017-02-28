@@ -1,5 +1,9 @@
 package com.github.mummyding.ymsecurity.util;
 
+import android.support.annotation.IdRes;
+
+import com.github.mummyding.ymsecurity.R;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -17,45 +21,45 @@ public class FileTypeHelper {
     public static String sFileExtensions;
 
     // Audio file types
-    public static final int FILE_TYPE_MP3     = 1;
-    public static final int FILE_TYPE_M4A     = 2;
-    public static final int FILE_TYPE_WAV     = 3;
-    public static final int FILE_TYPE_AMR     = 4;
-    public static final int FILE_TYPE_AWB     = 5;
-    public static final int FILE_TYPE_WMA     = 6;
-    public static final int FILE_TYPE_OGG     = 7;
+    public static final int FILE_TYPE_MP3 = 1;
+    public static final int FILE_TYPE_M4A = 2;
+    public static final int FILE_TYPE_WAV = 3;
+    public static final int FILE_TYPE_AMR = 4;
+    public static final int FILE_TYPE_AWB = 5;
+    public static final int FILE_TYPE_WMA = 6;
+    public static final int FILE_TYPE_OGG = 7;
     private static final int FIRST_AUDIO_FILE_TYPE = FILE_TYPE_MP3;
     private static final int LAST_AUDIO_FILE_TYPE = FILE_TYPE_OGG;
 
     // MIDI file types
-    public static final int FILE_TYPE_MID     = 11;
-    public static final int FILE_TYPE_SMF     = 12;
-    public static final int FILE_TYPE_IMY     = 13;
+    public static final int FILE_TYPE_MID = 11;
+    public static final int FILE_TYPE_SMF = 12;
+    public static final int FILE_TYPE_IMY = 13;
     private static final int FIRST_MIDI_FILE_TYPE = FILE_TYPE_MID;
     private static final int LAST_MIDI_FILE_TYPE = FILE_TYPE_IMY;
 
     // Video file types
-    public static final int FILE_TYPE_MP4     = 21;
-    public static final int FILE_TYPE_M4V     = 22;
-    public static final int FILE_TYPE_3GPP    = 23;
-    public static final int FILE_TYPE_3GPP2   = 24;
-    public static final int FILE_TYPE_WMV     = 25;
+    public static final int FILE_TYPE_MP4 = 21;
+    public static final int FILE_TYPE_M4V = 22;
+    public static final int FILE_TYPE_3GPP = 23;
+    public static final int FILE_TYPE_3GPP2 = 24;
+    public static final int FILE_TYPE_WMV = 25;
     private static final int FIRST_VIDEO_FILE_TYPE = FILE_TYPE_MP4;
     private static final int LAST_VIDEO_FILE_TYPE = FILE_TYPE_WMV;
 
     // Image file types
-    public static final int FILE_TYPE_JPEG    = 31;
-    public static final int FILE_TYPE_GIF     = 32;
-    public static final int FILE_TYPE_PNG     = 33;
-    public static final int FILE_TYPE_BMP     = 34;
-    public static final int FILE_TYPE_WBMP    = 35;
+    public static final int FILE_TYPE_JPEG = 31;
+    public static final int FILE_TYPE_GIF = 32;
+    public static final int FILE_TYPE_PNG = 33;
+    public static final int FILE_TYPE_BMP = 34;
+    public static final int FILE_TYPE_WBMP = 35;
     private static final int FIRST_IMAGE_FILE_TYPE = FILE_TYPE_JPEG;
     private static final int LAST_IMAGE_FILE_TYPE = FILE_TYPE_WBMP;
 
     // Playlist file types
-    public static final int FILE_TYPE_M3U     = 41;
-    public static final int FILE_TYPE_PLS     = 42;
-    public static final int FILE_TYPE_WPL     = 43;
+    public static final int FILE_TYPE_M3U = 41;
+    public static final int FILE_TYPE_PLS = 42;
+    public static final int FILE_TYPE_WPL = 43;
     private static final int FIRST_PLAYLIST_FILE_TYPE = FILE_TYPE_M3U;
     private static final int LAST_PLAYLIST_FILE_TYPE = FILE_TYPE_WPL;
 
@@ -102,6 +106,7 @@ public class FileTypeHelper {
             = new HashMap<String, MediaFileType>();
     private static HashMap<String, Integer> sMimeTypeMap
             = new HashMap<String, Integer>();
+
     static void addFileType(String extension, int fileType, String mimeType) {
         sFileTypeMap.put(extension, new MediaFileType(fileType, mimeType));
         sMimeTypeMap.put(mimeType, new Integer(fileType));
@@ -234,13 +239,76 @@ public class FileTypeHelper {
         } else if (isApkFileType(type.fileType)) {
             return FileType.APK_FILE;
         } else if (isCompressFileType(type.fileType)) {
-          return FileType.COMPRESS_FILE;
+            return FileType.COMPRESS_FILE;
         } else if (isDocumentFileType(type.fileType)) {
-          return FileType.DOCUMENT_FILE;
+            return FileType.DOCUMENT_FILE;
         } else if (isLargeFile(path)) {
             return FileType.LARGE_FILE;
         }
         return FileType.UNKNOWN;
+    }
+
+    public static int getFileIconResId(FileType fileType) {
+        switch (fileType) {
+            case APK_FILE:
+                return R.drawable.category_file_icon_apk;
+            case DOCUMENT_FILE:
+                return R.drawable.category_file_icon_doc;
+            case AUDIO_FILE:
+                return R.drawable.category_file_icon_music;
+            case VIDEO_FILE:
+                return R.drawable.category_file_icon_video;
+            case IMAGE_FILE:
+                return R.drawable.category_file_icon_pic;
+            case COMPRESS_FILE:
+                return R.drawable.category_file_icon_zip;
+            default:
+                return R.drawable.category_file_icon_default;
+        }
+    }
+
+    public static int getFileIconResId(String path) {
+        MediaFileType type = getMediaFileType(path);
+        if (type == null) {
+            return R.drawable.category_file_icon_default;
+        }
+        switch (type.fileType) {
+            case FILE_TYPE_TXT:
+                return R.drawable.file_icon_txt;
+            case FILE_TYPE_DOC:
+            case FILE_TYPE_DOCX:
+                return R.drawable.file_icon_doc;
+            case FILE_TYPE_XLS:
+                return R.drawable.file_icon_xls;
+            case FILE_TYPE_PPT:
+            case FILE_TYPE_PPTX:
+                return R.drawable.file_icon_ppt;
+            case FILE_TYPE_PPS:
+                return R.drawable.file_icon_pps;
+            case FILE_TYPE_MP3:
+                return R.drawable.file_icon_mp3;
+            case FILE_TYPE_WMA:
+                return R.drawable.file_icon_wma;
+            case FILE_TYPE_M4A:
+                return R.drawable.file_icon_m4a;
+            case FILE_TYPE_MID:
+                return R.drawable.file_icon_mid;
+            case FILE_TYPE_3GPP:
+            case FILE_TYPE_3GPP2:
+                return R.drawable.file_icon_3gpp;
+            case FILE_TYPE_OGG:
+                return R.drawable.file_icon_ogg;
+            case FILE_TYPE_PDF:
+                return R.drawable.file_icon_pdf;
+            case FILE_TYPE_RAR:
+                return R.drawable.file_icon_rar;
+            case FILE_TYPE_ZIP:
+                return R.drawable.file_icon_zip;
+            case FILE_TYPE_HTM:
+            case FILE_TYPE_HTML:
+                return R.drawable.file_icon_html;
+        }
+        return getFileIconResId(getFileType(path));
     }
 
     public static String getTypeName(FileType fileType) {
@@ -260,8 +328,8 @@ public class FileTypeHelper {
             case LARGE_FILE:
                 return "大文件";
             case UNKNOWN:
-                default:
-                    return "未知";
+            default:
+                return "未知";
         }
     }
 
