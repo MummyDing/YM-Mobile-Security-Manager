@@ -25,28 +25,15 @@ import java.util.List;
  * Created by dingqinying on 17/2/22.
  */
 
-public class CacheFileListView extends RecyclerView implements IView<List<CacheFileViewModel>> {
+public class CacheFileListView extends AbstractCacheFileListView implements IView<List<CacheFileViewModel>> {
 
-    private Context mContext;
-    private CacheFileAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private List<CacheFileViewModel> mCacheFileList = new ArrayList<>();
-
-    public CacheFileListView(Context context) {
-        this(context, null);
-    }
 
     public CacheFileListView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
     }
 
-    public CacheFileListView(Context context, @Nullable AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        mContext = context;
-        init();
-    }
-
-    private void init() {
+    protected void init() {
         setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mContext);
         mAdapter = new CacheFileAdapter(mContext);
@@ -55,30 +42,10 @@ public class CacheFileListView extends RecyclerView implements IView<List<CacheF
         setAdapter(mAdapter);
     }
 
-    @Override
-    public void bindViewModel(List<CacheFileViewModel> viewModel) {
-        if (viewModel == null || viewModel.isEmpty()) {
-            return;
-        }
-        mCacheFileList.clear();
-        mCacheFileList.addAll(viewModel);
-    }
-
-    @Override
-    public void update() {
-        if (mCacheFileList.isEmpty()) {
-            return;
-        }
-        mAdapter.setData(mCacheFileList);
-    }
-
-    private class CacheFileAdapter extends RecyclerView.Adapter<CacheFileAdapter.VH> {
-
-        private Context mContext;
-        private List<CacheFileViewModel> mData;
+    private class CacheFileAdapter extends AbstractCacheFileListView.BaseAdapter<CacheFileAdapter.VH> {
 
         public CacheFileAdapter(Context context) {
-            this.mContext = context;
+            super(context);
         }
 
         @Override
@@ -99,31 +66,12 @@ public class CacheFileListView extends RecyclerView implements IView<List<CacheF
             }
         }
 
-        private CacheFileViewModel getItem(int position) {
-            if (mData == null) {
-                return null;
-            }
-            return mData.get(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            if (mData != null) {
-                return mData.size();
-            }
-            return 0;
-        }
-
-        public void setData(List<CacheFileViewModel> data) {
-            this.mData = data;
-        }
-
         public class VH extends ViewHolder {
-
             YMImageView mLogo;
             TextView mName;
             TextView mSize;
             YMCheckBox mCheckBox;
+
             public VH(View itemView) {
                 super(itemView);
                 mLogo = (YMImageView) itemView.findViewById(R.id.logo);
