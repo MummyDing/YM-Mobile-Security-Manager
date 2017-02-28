@@ -50,6 +50,7 @@ public class SubCacheCleanActivity extends SwipeBackActivity {
         switch (mFileType) {
             case IMAGE_FILE:
                 mSubCacheListFragment = ImageGridFragment.newInstance(mFileType, mFileInfoList);
+                break;
             case APK_FILE:
             case DOCUMENT_FILE:
             default:

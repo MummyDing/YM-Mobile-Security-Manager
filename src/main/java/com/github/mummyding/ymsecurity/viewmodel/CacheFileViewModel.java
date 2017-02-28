@@ -13,16 +13,22 @@ public class CacheFileViewModel {
     private String mName;
     private long mSize;
     private boolean mChecked;
+    private String mPath;
 
     public CacheFileViewModel(FileInfoModel fileInfo) {
         if (fileInfo != null) {
             mName = fileInfo.getFileName();
             mSize = fileInfo.getCacheSize();
+            mPath = fileInfo.getFilePath();
         }
     }
 
     public Drawable getDrawable() {
         return mDrawable;
+    }
+
+    public String getFilePath() {
+        return mPath;
     }
 
     public String getName() {

@@ -42,7 +42,7 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
         setAdapter(mAdapter);
     }
 
-    private class CacheFileAdapter extends AbstractCacheFileListView.BaseAdapter<CacheFileAdapter.VH> {
+    private class CacheFileAdapter extends BaseAdapter<CacheFileAdapter.VH> {
 
         public CacheFileAdapter(Context context) {
             super(context);
