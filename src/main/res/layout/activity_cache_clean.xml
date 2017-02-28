@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tip"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_marginTop="30dp"
-        android:textColor="#000" />
+        android:layout_marginTop="30dp" />
 
     <com.github.mummyding.ymsecurity.ui.listview.CacheGroupListView
         android:id="@+id/cache_group_list"

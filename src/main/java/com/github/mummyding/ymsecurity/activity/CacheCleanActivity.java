@@ -10,13 +10,13 @@ import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.base.SwipeBackActivity;
 import com.github.mummyding.ymsecurity.model.FileInfoModel;
 import com.github.mummyding.ymsecurity.ui.listview.CacheGroupListView;
-import com.github.mummyding.ymsecurity.ui.widget.YMProgressBar;
 import com.github.mummyding.ymsecurity.util.CacheScanner;
 import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.FileUtil;
 import com.github.mummyding.ymsecurity.viewmodel.CacheGroupViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,9 +30,9 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheScanne
 
     private TextView mTip;
     private CacheGroupListView mGroupList;
-    private List<FileInfoModel> mFileInfoList = new ArrayList<>();
-    List<CacheGroupViewModel> mCacheGroupViewModelList = new ArrayList<>();
-    Map<FileTypeHelper.FileType, Integer> mPositionMap = new LinkedHashMap<>();
+    private Map<FileTypeHelper.FileType, List<FileInfoModel>> mFileInfoListMap = new HashMap<>();
+    private List<CacheGroupViewModel> mCacheGroupViewModelList = new ArrayList<>();
+    private Map<FileTypeHelper.FileType, Integer> mPositionMap = new LinkedHashMap<>();
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, CacheCleanActivity.class);
@@ -46,10 +46,15 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheScanne
         init();
     }
 
-
     private void init() {
         mTip = (TextView) findViewById(R.id.tip);
         mGroupList = (CacheGroupListView) findViewById(R.id.cache_group_list);
+        mGroupList.setOnItemClickListener(new CacheGroupListView.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                SubCacheCleanActivity.launch(CacheCleanActivity.this, mFileInfoListMap.get(mPositionMap.keySet().toArray()[position]), (FileTypeHelper.FileType) mPositionMap.keySet().toArray()[position]);
+            }
+        });
         CacheScanner.getInstance().addScanCacheListener(this);
         CacheScanner.getInstance().scanCache("/");
 
@@ -60,17 +65,29 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheScanne
         mPositionMap.put(FileTypeHelper.FileType.COMPRESS_FILE, 4);
         mPositionMap.put(FileTypeHelper.FileType.AUDIO_FILE, 5);
 
+        mFileInfoListMap.put(FileTypeHelper.FileType.DOCUMENT_FILE, new ArrayList<FileInfoModel>());
+        mFileInfoListMap.put(FileTypeHelper.FileType.IMAGE_FILE, new ArrayList<FileInfoModel>());
+        mFileInfoListMap.put(FileTypeHelper.FileType.APK_FILE, new ArrayList<FileInfoModel>());
+        mFileInfoListMap.put(FileTypeHelper.FileType.VIDEO_FILE, new ArrayList<FileInfoModel>());
+        mFileInfoListMap.put(FileTypeHelper.FileType.COMPRESS_FILE, new ArrayList<FileInfoModel>());
+        mFileInfoListMap.put(FileTypeHelper.FileType.AUDIO_FILE, new ArrayList<FileInfoModel>());
+
+
         for (Iterator<FileTypeHelper.FileType> it = mPositionMap.keySet().iterator(); it.hasNext(); ) {
             FileTypeHelper.FileType fileType = it.next();
             mCacheGroupViewModelList.add(new CacheGroupViewModel(fileType));
         }
     }
 
+    private void resetData() {
+
+    }
+
     @Override
     public void onStateChanged(FileInfoModel fileInfoModel) {
         if (fileInfoModel != null) {
             mTip.setText(fileInfoModel.getFileName() + " : " + FileUtil.formatSize(fileInfoModel.getCacheSize()));
-            mFileInfoList.add(fileInfoModel);
+            mFileInfoListMap.get(fileInfoModel.getFileType()).add(fileInfoModel);
             mCacheGroupViewModelList.get(mPositionMap.get(fileInfoModel.getFileType())).addSize(fileInfoModel.getCacheSize());
         }
     }

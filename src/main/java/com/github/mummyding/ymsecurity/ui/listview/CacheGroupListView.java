@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.github.mummyding.ymsecurity.R;
 import com.github.mummyding.ymsecurity.ui.IView;
 import com.github.mummyding.ymsecurity.ui.widget.YMImageView;
+import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.util.FileUtil;
 import com.github.mummyding.ymsecurity.viewmodel.CacheGroupViewModel;
 
@@ -104,7 +105,8 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
         public void onBindViewHolder(VH holder, final int position) {
             CacheGroupViewModel cacheGroup = getItem(position);
             if (cacheGroup != null) {
-                holder.mLogo.setDrawable(/*cacheGroup.getDrawable()*/ getResources().getDrawable(R.mipmap.ic_launcher));
+                holder.mLogo.setDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+                holder.mTypeName.setText(cacheGroup.getName());
                 holder.mMemorySize.setText(FileUtil.formatSize(cacheGroup.getSize()));
                 holder.mItemView.setOnClickListener(new OnClickListener() {
                     @Override
@@ -136,11 +138,13 @@ public class CacheGroupListView extends RecyclerView implements IView<List<Cache
     private class VH extends RecyclerView.ViewHolder {
         View mItemView;
         YMImageView mLogo;
+        TextView mTypeName;
         TextView mMemorySize;
         public VH(View itemView) {
             super(itemView);
             mItemView = itemView;
             mLogo = (YMImageView) itemView.findViewById(R.id.logo);
+            mTypeName = (TextView) itemView.findViewById(R.id.typeName);
             mMemorySize = (TextView) itemView.findViewById(R.id.memory_size);
         }
     }

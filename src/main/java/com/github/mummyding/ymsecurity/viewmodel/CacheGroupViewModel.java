@@ -17,6 +17,7 @@ public class CacheGroupViewModel {
 
 
     public CacheGroupViewModel(FileTypeHelper.FileType fileType) {
+        mName = FileTypeHelper.getTypeName(fileType);
     }
 
     public Drawable getDrawable() {

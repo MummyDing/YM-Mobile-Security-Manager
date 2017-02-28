@@ -243,6 +243,28 @@ public class FileTypeHelper {
         return FileType.UNKNOWN;
     }
 
+    public static String getTypeName(FileType fileType) {
+        switch (fileType) {
+            case DOCUMENT_FILE:
+                return "文档";
+            case IMAGE_FILE:
+                return "图片";
+            case APK_FILE:
+                return "安装包";
+            case VIDEO_FILE:
+                return "视频";
+            case COMPRESS_FILE:
+                return "压缩包";
+            case AUDIO_FILE:
+                return "音频";
+            case LARGE_FILE:
+                return "大文件";
+            case UNKNOWN:
+                default:
+                    return "未知";
+        }
+    }
+
     private static boolean isLargeFile(String path) {
         // TODO: 2017/2/1 待补充
         return false;

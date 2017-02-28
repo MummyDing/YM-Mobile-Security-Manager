@@ -83,7 +83,7 @@ public class CacheFileListView extends RecyclerView implements IView<List<CacheF
 
         @Override
         public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cache_file, parent);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cache_file, parent, false);
             VH vh = new VH(view);
             return vh;
         }
