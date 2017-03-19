@@ -21,12 +21,12 @@ public class FileUtil {
             try {
                 is = new FileInputStream(file);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                return 0;
             }
             try {
                 size = is.available();
             } catch (IOException e) {
-                e.printStackTrace();
+                return 0;
             }
         }
         return size;

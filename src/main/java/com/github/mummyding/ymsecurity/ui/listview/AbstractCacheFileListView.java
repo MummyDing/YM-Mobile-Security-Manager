@@ -1,6 +1,7 @@
 package com.github.mummyding.ymsecurity.ui.listview;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -84,6 +85,38 @@ public abstract class AbstractCacheFileListView extends RecyclerView implements 
 
         public void setData(List<CacheFileViewModel> data) {
             this.mData = data;
+        }
+    }
+
+
+    protected abstract class ListCursorAdapter<T extends ViewHolder> extends RecyclerViewCursorAdapter<T> {
+
+
+        /**
+         * Recommended constructor.
+         *
+         * @param context The context
+         * @param c       The cursor from which to get the data.
+         * @param flags   Flags used to determine the behavior of the adapter;
+         *                Currently it accept {@link #FLAG_REGISTER_CONTENT_OBSERVER}.
+         */
+        public ListCursorAdapter(Context context, Cursor c, int flags) {
+            super(context, c, flags);
+        }
+
+        @Override
+        public void onBindViewHolder(T holder, Cursor cursor) {
+
+        }
+
+        @Override
+        protected void onContentChanged() {
+
+        }
+
+        @Override
+        public T onCreateViewHolder(ViewGroup parent, int viewType) {
+            return null;
         }
     }
 }
