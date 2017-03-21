@@ -14,15 +14,18 @@ import com.github.mummyding.ymsecurity.util.FileTypeHelper;
 import com.github.mummyding.ymsecurity.viewmodel.CacheFileViewModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by dingqinying on 17/2/23.
  */
 
-public class CacheListFragment extends AbstractSubCacheListFragment {
+public class CacheListFragment extends AbstractSubCacheListFragment /*implements IFileInteractionListener */{
 
     private CacheFileListView mCacheFileList;
+//    private FileViewInteractionHub mFileViewInteractionHub;
+//    private FileIconHelper mFileIconHelper;
 
     public static AbstractSubCacheListFragment newInstance(FileTypeHelper.FileType fileType, List<FileInfoModel> list) {
         CacheListFragment fragment = new CacheListFragment();
@@ -46,9 +49,99 @@ public class CacheListFragment extends AbstractSubCacheListFragment {
         for (FileInfoModel fileInfo: mFileInfoList) {
             cacheFileViewModelList.add(new CacheFileViewModel(fileInfo));
         }
-        mCacheFileList.bindViewModel(cacheFileViewModelList);
+//
+//        mFileViewInteractionHub = new FileViewInteractionHub(this);
+//        mFileViewInteractionHub.setMode(FileViewInteractionHub.Mode.View);
+//        mFileViewInteractionHub.setRootPath("/");
+//        mFileIconHelper = new FileIconHelper(getActivity());
+//        mCacheFileList.bindAdapter(mFileViewInteractionHub, mFileIconHelper);
+//        mCacheFileList.bindViewModel(cacheFileViewModelList);
         mCacheFileList.update();
     }
 
 
+   /* @Override
+    public View getViewById(int id) {
+        return null;
+    }
+
+    @Override
+    public void onDataChanged() {
+
+    }
+
+    @Override
+    public void onPick(FileInfo f) {
+
+    }
+
+    @Override
+    public boolean shouldShowOperationPane() {
+        return false;
+    }
+
+    @Override
+    public boolean onOperation(int id) {
+        return false;
+    }
+
+    @Override
+    public String getDisplayPath(String path) {
+        return null;
+    }
+
+    @Override
+    public String getRealPath(String displayPath) {
+        return null;
+    }
+
+    @Override
+    public void runOnUiThread(Runnable r) {
+
+    }
+
+    @Override
+    public boolean onNavigation(String path) {
+        return false;
+    }
+
+    @Override
+    public boolean shouldHideMenu(int menu) {
+        return false;
+    }
+
+    @Override
+    public FileIconHelper getFileIconHelper() {
+        return null;
+    }
+
+    @Override
+    public FileInfo getItem(int pos) {
+        return null;
+    }
+
+    @Override
+    public void sortCurrentList(FileSortHelper sort) {
+
+    }
+
+    @Override
+    public Collection<FileInfo> getAllFiles() {
+        return null;
+    }
+
+    @Override
+    public void addSingleFile(FileInfo file) {
+
+    }
+
+    @Override
+    public boolean onRefreshFileList(String path, FileSortHelper sort) {
+        return false;
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }*/
 }

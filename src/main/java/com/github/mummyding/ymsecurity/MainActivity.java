@@ -1,19 +1,22 @@
 package com.github.mummyding.ymsecurity;
 
 import android.app.ActivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.mummyding.ymsecurity.activity.CacheCleanActivity;
 import com.github.mummyding.ymsecurity.base.BaseActivity;
 import com.github.mummyding.ymsecurity.model.FileInfoModel;
 import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
 import com.github.mummyding.ymsecurity.util.CacheScanner;
 import com.github.mummyding.ymsecurity.util.MemoryCleaner;
 import com.github.mummyding.ymsecurity.ui.widget.YMProgressBar;
+
+import net.micode.fileexplorer.FileCategoryActivity;
+import net.micode.fileexplorer.FileExplorerTabActivity;
 
 import java.io.IOException;
 
@@ -44,7 +47,9 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
 //                MemoryCleaner.getInstance().scanMemory(MainActivity.this, MemoryCleaner.CLEAN_LEVEL_DEEP);
 //                CacheScanner.getInstance().scanCache("/sdcard/Download/");
 //                MemoryCleanActivity.launch(MainActivity.this);
-                CacheCleanActivity.launch(MainActivity.this);
+//                CacheCleanActivity.launch(MainActivity.this);
+                Intent intent = new Intent(MainActivity.this, FileExplorerTabActivity.class);
+                startActivity(intent);
             }
         });
     }

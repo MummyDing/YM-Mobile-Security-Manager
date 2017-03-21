@@ -24,7 +24,7 @@ public abstract class AbstractCacheFileListView extends RecyclerView implements 
 
     protected Context mContext;
     protected List<CacheFileViewModel> mCacheFileList = new ArrayList<>();
-    protected BaseAdapter mAdapter;
+    protected Adapter mAdapter;
 
     protected abstract void init();
 
@@ -56,7 +56,7 @@ public abstract class AbstractCacheFileListView extends RecyclerView implements 
         if (mCacheFileList.isEmpty()) {
             return;
         }
-        mAdapter.setData(mCacheFileList);
+//        mAdapter.setData(mCacheFileList);
     }
 
     protected abstract class BaseAdapter<T extends ViewHolder> extends RecyclerView.Adapter<T> {
@@ -91,23 +91,10 @@ public abstract class AbstractCacheFileListView extends RecyclerView implements 
 
     protected abstract class ListCursorAdapter<T extends ViewHolder> extends RecyclerViewCursorAdapter<T> {
 
-
-        /**
-         * Recommended constructor.
-         *
-         * @param context The context
-         * @param c       The cursor from which to get the data.
-         * @param flags   Flags used to determine the behavior of the adapter;
-         *                Currently it accept {@link #FLAG_REGISTER_CONTENT_OBSERVER}.
-         */
         public ListCursorAdapter(Context context, Cursor c, int flags) {
             super(context, c, flags);
         }
 
-        @Override
-        public void onBindViewHolder(T holder, Cursor cursor) {
-
-        }
 
         @Override
         protected void onContentChanged() {
@@ -117,6 +104,15 @@ public abstract class AbstractCacheFileListView extends RecyclerView implements 
         @Override
         public T onCreateViewHolder(ViewGroup parent, int viewType) {
             return null;
+        }
+
+        public Object getItem(int position) {
+            if (mDataValid && mCursor != null) {
+                mCursor.moveToPosition(position);
+                return mCursor;
+            } else {
+                return null;
+            }
         }
     }
 }

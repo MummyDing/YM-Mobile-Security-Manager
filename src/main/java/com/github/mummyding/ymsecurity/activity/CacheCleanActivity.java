@@ -56,7 +56,7 @@ public class CacheCleanActivity extends SwipeBackActivity implements CacheScanne
             }
         });
         CacheScanner.getInstance().addScanCacheListener(this);
-        CacheScanner.getInstance().scanCache("/");
+        CacheScanner.getInstance().scanCache("/sdcard/Download");
 
         mPositionMap.put(FileTypeHelper.FileType.DOCUMENT_FILE, 0);
         mPositionMap.put(FileTypeHelper.FileType.IMAGE_FILE, 1);

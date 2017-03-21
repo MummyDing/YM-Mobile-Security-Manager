@@ -5,6 +5,14 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".YMApplication"
         android:allowBackup="true"
@@ -23,6 +31,59 @@
         <activity android:name=".activity.MemoryCleanActivity" />
         <activity android:name=".activity.CacheCleanActivity"/>
         <activity android:name=".activity.SubCacheCleanActivity"/>
+
+
+        <activity
+            android:name="net.micode.fileexplorer.FileExplorerTabActivity"
+            android:configChanges="screenSize|keyboardHidden"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.Material"
+            android:uiOptions="splitActionBarWhenNarrow">
+            <intent-filter >
+                <action android:name="android.intent.action.PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+            <intent-filter >
+                <action android:name="android.intent.action.GET_CONTENT" />
+
+                <category android:name="android.intent.category.OPENABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <!--
+               <activity android:name=".net.micode.fileexplorer.SearchActivity" >
+                   <intent-filter >
+                       <action android:name="android.intent.action.SEARCH" />
+
+                       <category android:name="android.intent.category.DEFAULT" />
+                   </intent-filter>
+
+                   <meta-data
+                       android:name="android.app.searchable"
+                 android:resource="@xml/searchable" />
+               </activity>
+
+            <activity
+                   android:label="@string/menu_setting"
+                   android:launchMode="singleTop"
+                   android:name="FileExplorerPreferenceActivity"
+                   android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+               </activity>
+
+               <meta-data
+                   android:name="android.app.default_searchable"
+                   android:value=".SearchActivity" />
+
+               <service android:name=".FTPServerService" />-->
     </application>
+
 
 </manifest>
