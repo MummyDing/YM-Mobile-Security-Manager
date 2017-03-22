@@ -14,9 +14,8 @@ import com.github.mummyding.ymsecurity.model.MemoryCleanerModel;
 import com.github.mummyding.ymsecurity.util.CacheScanner;
 import com.github.mummyding.ymsecurity.util.MemoryCleaner;
 import com.github.mummyding.ymsecurity.ui.widget.YMProgressBar;
+import com.yzy.supercleanmaster.ui.RubbishCleanActivity;
 
-import net.micode.fileexplorer.FileCategoryActivity;
-import net.micode.fileexplorer.FileExplorerTabActivity;
 
 import java.io.IOException;
 
@@ -48,7 +47,7 @@ public class MainActivity extends BaseActivity implements MemoryCleaner.MemoryCl
 //                CacheScanner.getInstance().scanCache("/sdcard/Download/");
 //                MemoryCleanActivity.launch(MainActivity.this);
 //                CacheCleanActivity.launch(MainActivity.this);
-                Intent intent = new Intent(MainActivity.this, FileExplorerTabActivity.class);
+                Intent intent = new Intent(MainActivity.this, RubbishCleanActivity.class);
                 startActivity(intent);
             }
         });
