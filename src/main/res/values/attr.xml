@@ -2,4 +2,10 @@
 <resources>
     <attr name="primaryColor" format="color"/>
     <attr name="darkTransparent" format="color"/>
+
+    <declare-styleable name="YMMainItem">
+        <attr name="mi_src" format="reference"/>
+        <attr name="mi_backgroundColor" format="color"/>
+        <attr name="mi_text" format="string"/>
+    </declare-styleable>
 </resources>

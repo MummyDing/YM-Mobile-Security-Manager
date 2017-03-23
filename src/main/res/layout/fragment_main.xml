@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_junk_clean"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#584ea4"
+                app:mi_src="@drawable/ic_home_entry_clean"
+                app:mi_text="手机瘦身" />
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_memory_clean"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#4ccafd"
+                app:mi_src="@drawable/ic_home_entry_memory_clean"
+                app:mi_text="优化加速" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#00b773"
+                app:mi_src="@drawable/ic_home_entry_app_manager"
+                app:mi_text="软件管理" />
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#8954e2"
+                app:mi_src="@drawable/ic_home_entry_file"
+                app:mi_text="文件管理" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#0f0"
+                app:mi_src="@drawable/ic_home_entry_device_info"
+                app:mi_text="设备信息" />
+
+            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                app:mi_backgroundColor="#00b773"
+                app:mi_src="@drawable/ic_home_entry_apps_locker"
+                app:mi_text="自启管理" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
