@@ -7,7 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="20dp"
@@ -46,6 +45,7 @@
             android:layout_height="180dp">
 
             <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_software_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"
@@ -56,6 +56,7 @@
                 app:mi_text="软件管理" />
 
             <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_file_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"
@@ -71,6 +72,7 @@
             android:layout_height="180dp">
 
             <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_device_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"
@@ -81,6 +83,7 @@
                 app:mi_text="设备信息" />
 
             <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+                android:id="@+id/btn_auto_start_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"

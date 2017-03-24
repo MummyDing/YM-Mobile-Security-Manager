@@ -21,14 +21,14 @@ import java.util.List;
  * Created by MummyDing on 2017/2/2.
  */
 
-public class MemoryCleanActivity extends SwipeBackActivity implements MemoryCleaner.MemoryCleanerStateChangedListener {
+public class MemoryCleanActivity2 extends SwipeBackActivity implements MemoryCleaner.MemoryCleanerStateChangedListener {
 
     private ListView mListView;
     private MemoryCleanerListAdapter mListAdapter;
     private List<MemoryCleanerModel> mMemoryCleanerModelList = new ArrayList<>();
 
     public static void launch(Context context) {
-        Intent intent = new Intent(context, MemoryCleanActivity.class);
+        Intent intent = new Intent(context, MemoryCleanActivity2.class);
         context.startActivity(intent);
     }
 
@@ -49,7 +49,7 @@ public class MemoryCleanActivity extends SwipeBackActivity implements MemoryClea
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MemoryCleaner.getInstance().killProcess(MemoryCleanActivity.this, mMemoryCleanerModelList.get(0).getPkgName());
+                MemoryCleaner.getInstance().killProcess(MemoryCleanActivity2.this, mMemoryCleanerModelList.get(0).getPkgName());
             }
         });
     }

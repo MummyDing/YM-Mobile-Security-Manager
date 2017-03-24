@@ -48,12 +48,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MemoryCleanActivity" />
+        <activity android:name=".activity.MemoryCleanActivity2" />
         <activity android:name=".activity.CacheCleanActivity"/>
         <activity android:name=".activity.SubCacheCleanActivity"/>
 
         <activity android:name="com.yzy.supercleanmaster.ui.RubbishCleanActivity"
+            android:label="手机瘦身"
             android:theme="@android:style/Theme.Material" />
+
+        <activity android:name="com.yzy.supercleanmaster.ui.MemoryCleanActivity"
+            android:label="优化加速"
+            android:theme="@android:style/Theme.Material" />
+        <activity android:name="net.micode.fileexplorer.FileCategoryActivity"
+            android:label="文件管理"
+            android:theme="@android:style/Theme.Material" />
+
+        <activity android:name="com.yzy.supercleanmaster.ui.SoftwareManageActivity"
+            android:label="软件管理"
+            android:theme="@android:style/Theme.Material" />
+
+        <activity android:name="com.yzy.supercleanmaster.ui.AutoStartManageActivity"
+            android:label="自启管理"
+            android:theme="@android:style/Theme.Material" />
+
+        <service
+            android:name="com.yzy.supercleanmaster.service.CleanerService"
+            android:exported="false" />
+        <service
+            android:name="com.yzy.supercleanmaster.service.CoreService"
+            android:exported="false" />
+
 
 
         <activity
