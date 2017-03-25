@@ -54,22 +54,22 @@
 
         <activity android:name="com.yzy.supercleanmaster.ui.RubbishCleanActivity"
             android:label="手机瘦身"
-            android:theme="@android:style/Theme.Material" />
+            android:theme="@style/MyTranslucentAppTheme" />
 
         <activity android:name="com.yzy.supercleanmaster.ui.MemoryCleanActivity"
             android:label="优化加速"
-            android:theme="@android:style/Theme.Material" />
+            android:theme="@style/MyTranslucentAppTheme" />
         <activity android:name="net.micode.fileexplorer.FileCategoryActivity"
             android:label="文件管理"
-            android:theme="@android:style/Theme.Material" />
+            android:theme="@style/MyTranslucentAppTheme" />
 
         <activity android:name="com.yzy.supercleanmaster.ui.SoftwareManageActivity"
             android:label="软件管理"
-            android:theme="@android:style/Theme.Material" />
+            android:theme="@style/MyTranslucentAppTheme" />
 
         <activity android:name="com.yzy.supercleanmaster.ui.AutoStartManageActivity"
             android:label="自启管理"
-            android:theme="@android:style/Theme.Material" />
+            android:theme="@style/MyTranslucentAppTheme" />
 
         <service
             android:name="com.yzy.supercleanmaster.service.CleanerService"
