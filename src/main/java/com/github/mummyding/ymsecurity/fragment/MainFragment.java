@@ -14,7 +14,8 @@ import com.yzy.supercleanmaster.ui.MemoryCleanActivity;
 import com.yzy.supercleanmaster.ui.RubbishCleanActivity;
 import com.yzy.supercleanmaster.ui.SoftwareManageActivity;
 
-import net.micode.fileexplorer.FileExplorerTabActivity;
+import net.kisslogo.holdyou.IndexActivity;
+import net.micode.fileexplorer.FileCategoryActivity;
 
 /**
  * Created by MummyDing on 2017/3/23.
@@ -22,12 +23,12 @@ import net.micode.fileexplorer.FileExplorerTabActivity;
 
 public class MainFragment extends BaseFragment implements View.OnClickListener {
 
-    View mJunkClean;
-    View mMemoryClean;
-    View mSoftManager;
-    View mFileManager;
-    View mDeviceInfo;
-    View mAutoStartManager;
+    private View mJunkClean;
+    private View mMemoryClean;
+    private View mSoftManager;
+    private View mFileManager;
+    private View mDeviceInfo;
+    private View mAutoStartManager;
 
     @Nullable
     @Override
@@ -63,9 +64,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         } else if (id == R.id.btn_software_manager) {
             launchActivity(SoftwareManageActivity.class);
         } else if (id == R.id.btn_file_manager) {
-            launchActivity(FileExplorerTabActivity.class);
+            launchActivity(FileCategoryActivity.class);
         } else if (id == R.id.btn_device_info) {
-//            launchActivity(DeviceInfo);
+            launchActivity(IndexActivity.class);
         } else if (id == R.id.btn_auto_start_manager) {
             launchActivity(AutoStartManageActivity.class);
         }

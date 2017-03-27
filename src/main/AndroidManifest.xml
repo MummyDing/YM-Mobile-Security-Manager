@@ -3,7 +3,12 @@
     package="com.github.mummyding.ymsecurity">
 
     <!---->
-
+    <uses-permission android:name="ANDROID.PERMISSION.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
@@ -59,7 +64,7 @@
         <activity android:name="com.yzy.supercleanmaster.ui.MemoryCleanActivity"
             android:label="优化加速"
             android:theme="@style/MyTranslucentAppTheme" />
-        <activity android:name="net.micode.fileexplorer.FileCategoryActivity"
+        <activity android:name="net.micode.fileexplorer.fragment.FileCategoryFragment"
             android:label="文件管理"
             android:theme="@style/MyTranslucentAppTheme" />
 
@@ -81,7 +86,7 @@
 
 
         <activity
-            android:name="net.micode.fileexplorer.FileExplorerTabActivity"
+            android:name="net.micode.fileexplorer.FileCategoryActivity"
             android:configChanges="screenSize|keyboardHidden"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.Material"
@@ -105,6 +110,11 @@
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="net.kisslogo.holdyou.IndexActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <!--
                <activity android:name=".net.micode.fileexplorer.SearchActivity" >
                    <intent-filter >

@@ -49,7 +49,7 @@
     <style name="MyTranslucentAppTheme" parent="MyAppTheme">
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    <style name="ActionBar" parent="android:Widget.ActionBar.">
+    <style name="ActionBar" parent="android:Widget.ActionBar">
         <item name="android:background">@drawable/gray_drawable</item>
         <item name="android:icon">@android:color/transparent</item>
         <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
