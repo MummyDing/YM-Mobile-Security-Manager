@@ -7,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mummyding.ymbase.BaseFragment;
-import com.github.mummyding.ymsecurity.R;
+import com.github.mummyding.ymbase.base.BaseFragment;
 import com.yzy.supercleanmaster.ui.AutoStartManageActivity;
+import com.yzy.supercleanmaster.ui.CacheCleanActivity;
 import com.yzy.supercleanmaster.ui.MemoryCleanActivity;
-import com.yzy.supercleanmaster.ui.RubbishCleanActivity;
 import com.yzy.supercleanmaster.ui.SoftwareManageActivity;
 
-import net.kisslogo.holdyou.IndexActivity;
-import net.micode.fileexplorer.FileCategoryActivity;
+import net.kisslogo.holdyou.DeviceInfoActivity;
+import net.micode.fileexplorer.FileManagerActivity;
 
 /**
  * Created by MummyDing on 2017/3/23.
@@ -59,15 +58,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         long id = v.getId();
         if (id == R.id.btn_junk_clean) {
-            launchActivity(RubbishCleanActivity.class);
+            launchActivity(CacheCleanActivity.class);
         } else if (id == R.id.btn_memory_clean) {
             launchActivity(MemoryCleanActivity.class);
         } else if (id == R.id.btn_software_manager) {
             launchActivity(SoftwareManageActivity.class);
         } else if (id == R.id.btn_file_manager) {
-            launchActivity(FileCategoryActivity.class);
+            launchActivity(FileManagerActivity.class);
         } else if (id == R.id.btn_device_info) {
-            launchActivity(IndexActivity.class);
+            launchActivity(DeviceInfoActivity.class);
         } else if (id == R.id.btn_auto_start_manager) {
             launchActivity(AutoStartManageActivity.class);
         }

@@ -58,7 +58,7 @@
         <activity android:name=".activity.CacheCleanActivity"/>
         <activity android:name=".activity.SubCacheCleanActivity"/>
 -->
-        <activity android:name="com.yzy.supercleanmaster.ui.RubbishCleanActivity"
+        <activity android:name="com.yzy.supercleanmaster.ui.CacheCleanActivity"
             android:label="手机瘦身"
             android:theme="@style/MyTranslucentAppTheme" />
 
@@ -78,16 +78,16 @@
             android:theme="@style/MyTranslucentAppTheme" />
 
         <service
-            android:name="com.yzy.supercleanmaster.service.CleanerService"
+            android:name="com.yzy.supercleanmaster.service.CacheCleanService"
             android:exported="false" />
         <service
-            android:name="com.yzy.supercleanmaster.service.CoreService"
+            android:name="com.yzy.supercleanmaster.service.MemoryCleanService"
             android:exported="false" />
 
 
 
         <activity
-            android:name="net.micode.fileexplorer.FileCategoryActivity"
+            android:name="net.micode.fileexplorer.FileManagerActivity"
             android:configChanges="screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:label="文件管理"
@@ -114,7 +114,7 @@
         </activity>
 
         <activity
-            android:name="net.kisslogo.holdyou.IndexActivity"
+            android:name="net.kisslogo.holdyou.DeviceInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <!--
