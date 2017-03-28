@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp">
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_junk_clean"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -29,7 +29,7 @@
                 app:mi_src="@drawable/ic_home_entry_clean"
                 app:mi_text="手机瘦身" />
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_memory_clean"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp">
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_software_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -56,7 +56,7 @@
                 app:mi_src="@drawable/ic_home_entry_app_manager"
                 app:mi_text="软件管理" />
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_file_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp">
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_device_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -83,7 +83,7 @@
                 app:mi_src="@drawable/ic_home_entry_device_info"
                 app:mi_text="设备信息" />
 
-            <com.github.mummyding.ymsecurity.ui.widget.YMMainItem
+            <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_auto_start_manager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

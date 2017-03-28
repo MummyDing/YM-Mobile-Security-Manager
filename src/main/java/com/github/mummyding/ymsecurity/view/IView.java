@@ -1,4 +1,4 @@
-package com.github.mummyding.ymsecurity.ui;
+package com.github.mummyding.ymsecurity.view;
 
 /**
  * Created by dingqinying on 17/2/22.

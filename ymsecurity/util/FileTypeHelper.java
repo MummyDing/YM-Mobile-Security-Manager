@@ -219,7 +219,7 @@ public class FileTypeHelper {
     }
 
     public static MediaFileType getMediaFileType(String path) {
-        int lastDot = path.lastIndexOf(".");
+        int lastDot = path.lastIndexOf("");
         if (lastDot < 0)
             return null;
         return sFileTypeMap.get(path.substring(lastDot + 1).toUpperCase());

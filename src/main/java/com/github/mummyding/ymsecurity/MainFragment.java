@@ -1,4 +1,4 @@
-package com.github.mummyding.ymsecurity.fragment;
+package com.github.mummyding.ymsecurity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mummyding.ymbase.BaseFragment;
 import com.github.mummyding.ymsecurity.R;
-import com.github.mummyding.ymsecurity.base.BaseFragment;
 import com.yzy.supercleanmaster.ui.AutoStartManageActivity;
 import com.yzy.supercleanmaster.ui.MemoryCleanActivity;
 import com.yzy.supercleanmaster.ui.RubbishCleanActivity;
@@ -29,6 +29,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private View mFileManager;
     private View mDeviceInfo;
     private View mAutoStartManager;
+    private View mRootView;
 
     @Nullable
     @Override
