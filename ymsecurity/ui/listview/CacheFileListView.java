@@ -54,7 +54,7 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
 
         private FileIconHelper mFileIcon;
 
-        private HashMap<Integer, FileInfo> mFileNameList = new HashMap<Integer, FileInfo>();
+        private HashMap<Integer, FileInfoModel> mFileNameList = new HashMap<Integer, FileInfoModel>();
 
         private Context mContext;
 
@@ -75,10 +75,10 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
 
         @Override
         public void onBindViewHolder(VH holder, Cursor cursor) {
-            FileInfo fileInfo = getFileItem(cursor.getPosition());
+            FileInfoModel fileInfo = getFileItem(cursor.getPosition());
             if (fileInfo == null) {
                 // file is not existing, create a fake info
-                fileInfo = new FileInfo();
+                fileInfo = new FileInfoModel();
                 fileInfo.dbId = cursor.getLong(FileCategoryHelper.COLUMN_ID);
                 fileInfo.filePath = cursor.getString(FileCategoryHelper.COLUMN_PATH);
                 fileInfo.fileName = Util.getNameFromFilepath(fileInfo.filePath);
@@ -87,13 +87,13 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
             }
         }
 
-        public FileInfo getFileItem(int pos) {
+        public FileInfoModel getFileItem(int pos) {
             Integer position = Integer.valueOf(pos);
             if (mFileNameList.containsKey(position))
                 return mFileNameList.get(position);
 
             Cursor cursor = (Cursor) getItem(position);
-            FileInfo fileInfo = getFileInfo(cursor);
+            FileInfoModel fileInfo = getFileInfo(cursor);
             if (fileInfo == null)
                 return null;
 
@@ -102,7 +102,7 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
             return fileInfo;
         }
 
-        private FileInfo getFileInfo(Cursor cursor) {
+        private FileInfoModel getFileInfo(Cursor cursor) {
             return (cursor == null || cursor.getCount() == 0) ? null : Util
                     .GetFileInfo(cursor.getString(FileCategoryHelper.COLUMN_PATH));
         }
@@ -110,10 +110,10 @@ public class CacheFileListView extends AbstractCacheFileListView implements IVie
         @Override
         public void onBindViewHolder(VH holder, int position) {
             Cursor cursor = (Cursor) getItem(position);
-            FileInfo fileInfo = getFileItem(cursor.getPosition());
+            FileInfoModel fileInfo = getFileItem(cursor.getPosition());
             if (fileInfo == null) {
                 // file is not existing, create a fake info
-                fileInfo = new FileInfo();
+                fileInfo = new FileInfoModel();
                 fileInfo.dbId = cursor.getLong(FileCategoryHelper.COLUMN_ID);
                 fileInfo.filePath = cursor.getString(FileCategoryHelper.COLUMN_PATH);
                 fileInfo.fileName = Util.getNameFromFilepath(fileInfo.filePath);

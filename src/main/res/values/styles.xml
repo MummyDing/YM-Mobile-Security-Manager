@@ -7,20 +7,20 @@
 
 
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
+   <!-- <style name="AppBaseTheme" parent="android:Theme.Light">
+        &lt;!&ndash;
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
 
 
 
-        -->
+        &ndash;&gt;
     </style>
 
-    <!-- Application theme. -->
+    &lt;!&ndash; Application theme. &ndash;&gt;
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        &lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;
     </style>
 
     <style name="ActionbarNoIcon" parent="AppTheme">
@@ -51,7 +51,7 @@
     </style>
     <style name="ActionBar" parent="android:Widget.ActionBar">
         <item name="android:background">@drawable/gray_drawable</item>
-        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:icon">@null</item>
         <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
 
     </style>
@@ -90,5 +90,5 @@
     </style>
     <style name="Label.Medium" parent="@style/Label">
         <item name="android:textSize">@dimen/text_md</item>
-    </style>
+    </style>-->
 </resources>

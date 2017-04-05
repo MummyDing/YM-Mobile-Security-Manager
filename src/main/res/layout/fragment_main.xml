@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 app:mi_backgroundColor="#584ea4"
                 app:mi_src="@drawable/ic_home_entry_clean"
-                app:mi_text="手机瘦身" />
+                app:mi_text="缓存清理" />
 
             <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_memory_clean"
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 app:mi_backgroundColor="#00b773"
                 app:mi_src="@drawable/ic_home_entry_app_manager"
-                app:mi_text="软件管理" />
+                app:mi_text="应用管理" />
 
             <com.github.mummyding.ymsecurity.view.YMMainItem
                 android:id="@+id/btn_file_manager"

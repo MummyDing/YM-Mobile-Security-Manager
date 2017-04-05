@@ -1,21 +1,31 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        YMManager {
+            keyAlias 'YM'
+            keyPassword 'ymmanager'
+            storeFile file('YMManager')
+            storePassword 'ymmanager'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.0.2"
-
     defaultConfig {
         applicationId "com.github.mummyding.ymsecurity"
         minSdkVersion 16
         targetSdkVersion 21
         versionCode 1
         versionName "1.0.0"
+        signingConfig signingConfigs.YMManager
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 

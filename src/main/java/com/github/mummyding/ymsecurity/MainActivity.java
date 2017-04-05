@@ -12,6 +12,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActionBar().setLogo(getResources().getDrawable(R.mipmap.logo_white));
+        getActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.transparent));
+
         initView();
     }
 

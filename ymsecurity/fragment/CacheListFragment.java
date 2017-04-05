@@ -71,7 +71,7 @@ public class CacheListFragment extends AbstractSubCacheListFragment /*implements
     }
 
     @Override
-    public void onPick(FileInfo f) {
+    public void onPick(FileInfoModel f) {
 
     }
 
@@ -116,7 +116,7 @@ public class CacheListFragment extends AbstractSubCacheListFragment /*implements
     }
 
     @Override
-    public FileInfo getItem(int pos) {
+    public FileInfoModel getItem(int pos) {
         return null;
     }
 
@@ -126,12 +126,12 @@ public class CacheListFragment extends AbstractSubCacheListFragment /*implements
     }
 
     @Override
-    public Collection<FileInfo> getAllFiles() {
+    public Collection<FileInfoModel> getAllFiles() {
         return null;
     }
 
     @Override
-    public void addSingleFile(FileInfo file) {
+    public void addSingleFile(FileInfoModel file) {
 
     }
 
