@@ -58,35 +58,35 @@
         <activity android:name=".activity.CacheCleanActivity"/>
         <activity android:name=".activity.SubCacheCleanActivity"/>
 -->
-        <activity android:name="com.yzy.supercleanmaster.ui.CacheCleanActivity"
+        <activity android:name=".lib_clean.ui.CacheCleanActivity"
             android:label="缓存清理"
             android:theme="@style/MyTranslucentAppTheme" />
 
-        <activity android:name="com.yzy.supercleanmaster.ui.MemoryCleanActivity"
+        <activity android:name=".lib_clean.ui.MemoryCleanActivity"
             android:label="优化加速"
             android:theme="@style/MyTranslucentAppTheme" />
        <!-- <activity android:name="net.micode.fileexplorer.fragment.FileHomeFragment          android:label="文件管理"
             android:theme="@style/MyTranslucentAppTheme" />-->
 
-        <activity android:name="com.yzy.supercleanmaster.ui.SoftwareManageActivity"
+        <activity android:name=".lib_clean.ui.SoftwareManageActivity"
             android:label="应用管理"
             android:theme="@style/MyTranslucentAppTheme" />
 
-        <activity android:name="com.yzy.supercleanmaster.ui.AutoStartManageActivity"
+        <activity android:name=".lib_clean.ui.AutoStartManageActivity"
             android:label="自启管理"
             android:theme="@style/MyTranslucentAppTheme" />
 
         <service
-            android:name="com.yzy.supercleanmaster.service.CacheCleanService"
+            android:name=".lib_clean.service.CacheCleanService"
             android:exported="false" />
         <service
-            android:name="com.yzy.supercleanmaster.service.MemoryCleanService"
+            android:name=".lib_clean.service.MemoryCleanService"
             android:exported="false" />
 
 
 
         <activity
-            android:name="net.micode.fileexplorer.FileManagerActivity"
+            android:name=".lib_filemanager.FileManagerActivity"
             android:configChanges="screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:label="文件管理"
@@ -113,7 +113,7 @@
         </activity>
 
         <activity
-            android:name="net.kisslogo.holdyou.DeviceInfoActivity"
+            android:name=".lib_device.holdyou.DeviceInfoActivity"
             android:screenOrientation="portrait"
             android:label="设备信息"
             android:theme="@style/MyTranslucentAppTheme" />
