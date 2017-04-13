@@ -68,11 +68,11 @@
        <!-- <activity android:name="net.micode.fileexplorer.fragment.FileHomeFragment          android:label="文件管理"
             android:theme="@style/MyTranslucentAppTheme" />-->
 
-        <activity android:name=".lib_clean.ui.SoftwareManageActivity"
+        <activity android:name=".lib_manager.ui.SoftwareManageActivity"
             android:label="应用管理"
             android:theme="@style/MyTranslucentAppTheme" />
 
-        <activity android:name=".lib_clean.ui.AutoStartManageActivity"
+        <activity android:name=".lib_manager.ui.AutoStartManageActivity"
             android:label="自启管理"
             android:theme="@style/MyTranslucentAppTheme" />
 

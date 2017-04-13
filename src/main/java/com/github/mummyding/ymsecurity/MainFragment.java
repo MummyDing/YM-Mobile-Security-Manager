@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mummyding.ymbase.base.BaseFragment;
-import com.github.mummyding.ymsecurity.lib_clean.ui.AutoStartManageActivity;
 import com.github.mummyding.ymsecurity.lib_clean.ui.CacheCleanActivity;
 import com.github.mummyding.ymsecurity.lib_clean.ui.MemoryCleanActivity;
-import com.github.mummyding.ymsecurity.lib_clean.ui.SoftwareManageActivity;
 
 import com.github.mummyding.ymsecurity.lib_device.holdyou.DeviceInfoActivity;
 import com.github.mummyding.ymsecurity.lib_filemanager.FileManagerActivity;
+import com.github.mummyding.ymsecurity.lib_manager.ui.AutoStartManageActivity;
+import com.github.mummyding.ymsecurity.lib_manager.ui.SoftwareManageActivity;
 
 /**
  * Created by MummyDing on 2017/3/23.

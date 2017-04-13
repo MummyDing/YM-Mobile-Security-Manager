@@ -38,4 +38,5 @@ dependencies {
     compile project(path: ':lib-device')
     compile project(path: ':YMBase')
 //    compile project(':lib-manager')
+    compile project(path: ':lib-manager')
 }
