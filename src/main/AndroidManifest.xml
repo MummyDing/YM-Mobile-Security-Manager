@@ -84,7 +84,6 @@
             android:exported="false" />
 
 
-
         <activity
             android:name=".lib_filemanager.FileManagerActivity"
             android:configChanges="screenSize|keyboardHidden"
